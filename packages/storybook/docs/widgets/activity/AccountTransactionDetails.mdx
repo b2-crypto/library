@@ -1,0 +1,86 @@
+import { Meta, Canvas, Source, ArgTypes, Description } from '@storybook/blocks';
+import * as ActivityDetailsCard from './ActivityDetailsCard.stories';
+
+<Meta title="activity/Details/AccountTransactionDetails" />
+
+# Account Transaction Details
+
+**Table of Content**:
+
+- [Types](#types)
+- [Components](#components)
+
+## Types
+
+```tsx
+interface AccountTransactionActivity extends ActivityItem {
+  /* Transaction type */
+  type: AccountTransactionType;
+  /* Transaction status */
+  status: 'complete';
+  /* Transaction icon */
+  iconSymbol?: string;
+  /* Account transaction notional symbol*/
+  notionalSymbol?: string;
+  /* Notional rate from base currency at time of transaction */
+  notionalRate?: number;
+  /* Notional places for the notional amount */
+  notionalPlaces?: number;
+  /* Account transaction reference type */
+  referenceType: ReferenceType;
+  /* Account transaction transaction type */
+  transactionType: TransactionType;
+  /* Is credit entry */
+  isCR: boolean;
+}
+
+type AccountTransactionType =
+  | 'deposit'
+  | 'withdraw'
+  | 'buy'
+  | 'sell'
+  | 'send'
+  | 'receive'
+  | 'deposit-fee'
+  | 'withdraw-fee'
+  | 'buy-fee'
+  | 'sell-fee'
+  | 'unknown';
+
+type TransactionType =
+  | 'Fee'
+  | 'Trade'
+  | 'Other'
+  | 'Reverse'
+  | 'Hold'
+  | 'Rebate'
+  | 'MarginAcquisition'
+  | 'MarginRelinquish';
+
+type ReferenceType =
+  | 'Trade'
+  | 'Deposit'
+  | 'Withdraw'
+  | 'Transfer'
+  | 'OrderHold'
+  | 'WithdrawHold'
+  | 'DepositHold'
+  | 'MarginHold'
+  | 'ManualHold'
+  | 'ManualEntry'
+  | 'MarginAcquisition'
+  | 'MarginRelinquish'
+  | 'MarginQuoteHold';
+```
+
+## Components
+
+### Card
+
+This component renders the [ActivityDetailsCard](?path=/docs/activity-components-activitydetailscard-how-to-use--docs).
+
+#### [Account Transaction Details](?path=/story/activity-components-activitydetailscard--account-transaction-details)
+
+<Canvas of={ActivityDetailsCard.AccountTransactionDetails} layout="centered" />
+
+<ArgTypes of={ActivityDetailsCard.AccountTransactionDetails} />

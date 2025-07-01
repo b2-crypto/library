@@ -1,0 +1,71 @@
+import { Meta, Canvas, Source, ArgTypes, Description } from '@storybook/blocks';
+import { Tabs } from '@apex-rn/library/components';
+
+<Meta title="Profile/How To" />
+
+# Profile
+
+This document describes a possible implementation of the profile screen with "building blocks" provided by the library.
+
+**Table of Content**:
+
+- [Screen layout](#screen-layout)
+- [Tabs](#tabs)
+
+## Tab Layout
+
+The profile screen can be created using provided components. Here is an example of the tab layout:
+
+```tsx
+const PROFILE_TABS = ['profile', 'security', 'verification'];
+
+export const Profile = ({ navigation }) => {
+  const [activeTab, setActiveTab] = useState('profile');
+
+  const tabButtons = useMemo(
+    () =>
+      PROFILE_TABS.map(tab => ({
+        value: tab,
+        label: translate(`common.${tab}`),
+      })),
+    [],
+  );
+
+  const renderActiveScreen = useCallback(() => {
+    switch (activeTab) {
+      case 'profile':
+        return <ProfileTab languages={LANGUAGES} />;
+      case 'security':
+        return (
+          <SecurityTab
+            onEnableBiometric={() => navigation.navigate('ConfirmPassword')}
+            onEnable={() => navigation.navigate('TwoFactorActivation')}
+            onDisable={() => navigation.navigate('TwoFactorDisable')}
+          />
+        );
+      case 'verification':
+        return <VerificationTabWidget />;
+    }
+  }, [activeTab]);
+
+  return (
+    <Screen>
+      <Tabs data={tabButtons} value={activeTab} onChange={setActiveTab} />
+      {renderActiveScreen()}
+    </Screen>
+  );
+};
+```
+
+<ArgTypes of={Tabs} />
+
+```tsx
+/** List of profile tabs */
+type ProfileTab = 'profile' | 'security' | 'verification';
+```
+
+## Tabs
+
+- [ProfileTab](?path=/docs/profile-profile--docs)
+- [SecurityTab](?path=/docs/profile-security--docs)
+- [VerificationTabWidget](?path=/docs/profile-verification--docs)

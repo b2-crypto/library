@@ -1,0 +1,67 @@
+import { Meta, Canvas, Source, ArgTypes, Description } from '@storybook/blocks';
+import { SignUpForm } from '@apex-rn/library/features/Auth';
+
+<Meta title="Auth/Forms/Sign Up" />
+
+# Sign Up
+
+**Table of Content**:
+
+- [Types](#types)
+- [Components & Widgets](#components-and-widgets)
+- [Hooks](#hooks)
+
+## Types
+
+```tsx
+interface UserNameFormData {
+  userName: string;
+}
+
+interface PasswordFormData {
+  password: string;
+}
+
+interface LogInFormData extends UserNameFormData, PasswordFormData {}
+
+interface ConfirmPassword {
+  confirmPassword: string;
+}
+
+interface EmailFormData {
+  email: string;
+}
+
+interface SignUpFormData
+  extends LogInFormData,
+    ConfirmPassword,
+    EmailFormData {}
+```
+
+## Components and Widgets
+
+### SignUpForm
+
+Sign up form layout driven by react-hook-form's `useForm`. It will open a modal 
+with a message to verify via email on successfull signing up.
+
+<ArgTypes of={SignUpForm} />
+
+### SignUpTab
+
+This is a wrapper around the `SignUpForm` that provides `onSubmit` callback and state props from `useSignUp` hook. 
+Can be used as a separate screen content or as a tab.
+
+# Hooks
+
+### `useSignUp()`
+
+This hook provides a mutation callback for signup submission:
+
+```ts
+type UseSignUpReturn = [
+  (values: SignUpFormData) => Promise<MutationActionCreatorResult>,
+  { error: string | undefined, isLoading: boolean; }
+]
+function useSignUp(): UseSignUpReturn;
+```

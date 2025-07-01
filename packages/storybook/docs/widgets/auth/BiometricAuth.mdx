@@ -1,0 +1,130 @@
+import { Meta, ArgTypes, Canvas } from '@storybook/blocks';
+import * as BiometricCardStories from './BiometricCard.stories';
+import * as SetupBiometricModalStories from './SetupBiometricModal.stories';
+import * as BiometricLoginStories from './BiometricLogin.stories';
+import { BiometricWidget } from '@apex-rn/library/features/Profile';
+
+<Meta title="Auth/Biometric/How To" />
+
+# Biometric authentication
+
+This document describes a possible way to implement the biometric authentication for your app.
+
+Here is the suggested flow for bimetric auth:
+
+1. User logs in with his username and password
+2. He sees a modal to enable the biometric authentication (see [Setup Biometric](#setup-biometric) section).
+3. When he agrees
+   - ask for Touch ID or Face ID
+   - put the username and password in the encrypted storage
+   - put also a flag that biometric is enabled in the storage.
+4. When user's session expires and biometric is enabled, display a Touch ID or Face ID, read the login/password from encrypted storage and use them for authentication request.
+5. In the Profile user can disable biometric authentication by confirming that with Touch ID or Face ID.
+6. If on the step 2, user declined, he still can enable biometric authentication in the Profile section (Secure tab). In that case he will be asked for Touch ID or Face ID and his password.
+
+## `useBiometrics()`
+
+This hook provides general methods to handle biometric authentication.
+
+```ts
+type UseBiometricsReturn = {
+  /** flag indicating if user enabled biometric authentication */
+  isBiometricsEnabled: boolean | undefined;
+  /** sets the value for the 'isBiometricsEnabled' */
+  setBiometricEnabled: (value: boolean) => void;
+  /** shows the TouchID/FaceID native prompt */
+  promptBiometrics: () => Promise<{ success: boolean; error?: string; }>;
+  /** asks for TouchID/FaceID and saves the username/password in the storage. Returns false when user doesn't pass TouchID verification. */
+  enableBiometrics: (payload: { userName: string; password: string }) => boolean;
+  /** clears all saved configuration */
+  clearBiometrics: () => void;
+  /** updates password (might be useful when user resets his password) in Web app */
+  updatePassword: (payload: { userName: string; password: string }) => void,
+  /** asks for TouchID/FaceID and clears biometric configuration */
+  disableBiometrics: () => Promise<void>;
+  /** returns username/password stored in encrypted storage (if any) */
+  getCredentials: () => { userName: string|undefined; password: string|undefined; }
+};
+
+function useBiometrics(): UseBiometricsReturn;
+```
+
+## Setup Biometric
+
+This is a screen that looks like a modal and it uses `useBiometrics` hook which provides methods to enabled/disable/clear configuration.
+
+```jsx
+export const SetupBiometric = ({ route }) => {
+  const dispatch = useAppDispatch();
+  const { enableBiometrics, clearBiometrics } = useBiometrics();
+
+  const onConfirm = useCallback(async () => {
+    const status = await enableBiometrics(route.params);
+    status && dispatch(setAuthenticated());
+  }, [enableBiometrics, route.params]);
+
+  const onDiscard = useCallback(() => {
+    clearBiometrics();
+    dispatch(setAuthenticated());
+  }, [dispatch, clearBiometrics]);
+
+  return (
+    <SetupBiometricModal onConfirm={onConfirm} onDiscard={onDiscard} />
+  );
+};
+```
+### [SetupBiometricModal](?path=/story/auth-biometric-setupbiometricmodal--setup-biometric-modal-story)
+
+<ArgTypes of={SetupBiometricModalStories} />
+
+## Biometric Login
+
+When the `isBiometricsEnabled` is `true` and user is not authenticated, render a screen to sign in with biometrics.
+
+```jsx
+const BiometricLoginScreen = ({ navigation }) => {
+  const dispatch = useAppDispatch();
+  const { promptBiometrics, getCredentials } = useBiometrics();
+  const [onLogin, { isLoading, error }] = useLogin();
+
+  const onConfirm = useCallback(async () => {
+    const success = await promptBiometrics();
+    if (success) {
+      const { userName, password } = getCredentials();
+      const status =
+        userName && password && (await onLogin({ userName, password }));
+      status && dispatch(setAuthenticated());
+    }
+  }, [promptBiometrics, getCredentials, onLogin]);
+
+  return (
+    <BiometricLogin
+      headerText="Welcome back!"
+      onConfirm={onConfirm}
+      isLoading={isLoading}
+      error={error?.message}
+      onDiscard={() => navigation.navigate('AuthLanding')}
+    />
+  );
+};
+```
+
+You can play with a story for the BiometricLogin [here](?path=/story/auth-biometric-biometriclogin--biometric-login-story).
+
+<ArgTypes of={BiometricLoginStories} />
+
+## Profile widget
+
+There is a widget `BiometricWidget` that can be used in user's Profile to render the current state of the biometric auth setup.
+If the device doesn't support any biometric authentation method, nothing will be displayed.
+
+<ArgTypes of={BiometricWidget} />
+The widget expects only `onEnable` handler because it will require a navigation to the screen where user will have to enter his password.
+When user wants to disable the biometric auth, the widget will just call `disableBiometrics()` method from the hook above.
+
+
+
+This widget is a wrapper around the [`BiometricCard`](?path=/story/auth-biometric-biometriccard--biometric-card-story) component:
+
+<Canvas of={BiometricCardStories.BiometricCardStory} layout="centered" />
+<ArgTypes of={BiometricCardStories} />

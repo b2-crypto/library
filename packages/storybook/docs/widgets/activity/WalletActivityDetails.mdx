@@ -1,0 +1,139 @@
+import { Meta, Canvas, Source, ArgTypes, Description } from '@storybook/blocks';
+import * as ActivityDetailsCard from './ActivityDetailsCard.stories';
+
+<Meta title="activity/Details/WalletActivityDetails" />
+
+# WalletActivityDetails
+
+**Table of Content**:
+
+- [Types](#types)
+- [Components](#components)
+
+## Types
+
+```tsx
+interface WalletActivity extends ActivityItem {
+  /* Wallet activity type */
+  type: 'withdraw' | 'deposit';
+  /* The current status of the transaction. */
+  status: DepositStatus | WithdrawStatus;
+  /* Activity icon */
+  iconSymbol?: string;
+  /* Wallet activity notional symbol*/
+  notionalSymbol?: string;
+  /* Notional rate from base currency at time of transaction */
+  notionalRate?: number;
+  /* Notional places for the notional amount */
+  notionalPlaces?: number;
+  /* Full name of the wallet activity */
+  fullname?: string;
+  /* Any comment appended to the ticket. */
+  comments?: string;
+}
+
+type DepositStatus =
+  // (new ticket awaiting operator review)
+  | 'New'
+  // (an admin is looking at the ticket)
+  | 'AdminProcessing'
+  // (an admin accepts the ticket)
+  | 'Accepted'
+  // (admin rejects the ticket)
+  | 'Rejected'
+  // (automatic processing; an unlikely status for a deposit)
+  | 'SystemProcessing'
+  // (the deposit has concluded)
+  | 'FullyProcessed'
+  // (the deposit has failed for some reason)
+  | 'Failed'
+  // (Account Provider has set status to pending)
+  | 'Pending'
+  // (Account Provider confirms the deposit)
+  | 'Confirmed'
+  // (anti-money-laundering process underway)
+  | 'AmlProcessing'
+  // (anti-money-laundering process successful)
+  | 'AmlAccepted'
+  // (deposit did not stand up to anti-money-laundering process)
+  | 'AmlRejected'
+  // (anti-money-laundering process failed/did not complete)
+  | 'AmlFailed'
+  // (deposit meets limits for fiat or crypto asset)
+  | 'LimitsAccepted'
+  // (deposit does not meet limits for fiat or crypto asset)
+  | 'LimitsRejected'
+  // (anti-money-laundering process registered)
+  | 'AmlRegistered';
+
+type WithdrawStatus =
+  // (awaiting operator review)
+  | 'New'
+  // (An admin is looking at the ticket)
+  | 'AdminProcessing'
+  //(withdrawal will proceed)
+  | 'Accepted'
+  // (admin or automatic rejection)
+  | 'Rejected'
+  // (automatic processing underway)
+  | 'SystemProcessing'
+  // (the withdrawal has concluded)
+  | 'FullyProcessed'
+  // (the withdrawal failed for some reason)
+  | 'Failed'
+  // (the admin has placed the withdrawal in pending status)
+  | 'Pending'
+  // (user must click 2-factor authentication confirmation link)
+  | 'Pending2Fa'
+  // (withdrawal will be automatically processed)
+  | 'AutoAccepted'
+  // (waiting for funds to be allocated for the withdrawal)
+  | 'Delayed'
+  // (withdraw canceled by user or Superuser)
+  | 'UserCancelled'
+  // (withdraw canceled by Superuser)
+  | 'AdminCancelled'
+  // anti-money-laundering process underway)
+  | 'AmlAddressVerificationProcessing'
+  //(anti-money-laundering process complete)
+  | 'AmlAccepted'
+  // (withdrawal did not stand up to anti-money-laundering process)
+  | 'AmlRejected'
+  // (withdrawal did not complete anti-money-laundering process)
+  | 'AmlFailed'
+  // (withdrawal meets limits for fiat or crypto asset)
+  | 'LimitsAccepted'
+  // (withdrawal does not meet limits for fiat or crypto asset)
+  | 'LimitsRejected'
+  // (withdrawal sent to Account Provider; awaiting blockchain confirmation)
+  | 'Submitted'
+  // (Account Provider confirms that withdrawal is on the blockchain)
+  | 'Confirmed'
+  // (admin has sent withdrawal via wallet or admin function directly; marks ticket as FullyProcessed; debits account)
+  | 'ManuallyConfirmed'
+  // (user has confirmed withdraw via 2-factor authentication.)
+  | 'Confirmed2Fa'
+  | 'AvsPending'
+  | 'AmlAcceptedOverride'
+  | 'PendingSubmission'
+  | 'ReSubmitted'
+  | 'ManualReview';
+```
+
+## Components
+
+### Activity Details Card
+
+This component renders the [activity details card](?path=/docs/activity-components-activitydetailscard-how-to-use--docs) with different styles and content based on the activity type — deposit or withdraw.
+
+#### [Deposit Details](?path=/story/activity-components-activitydetailscard--deposit-details)
+
+<Canvas of={ActivityDetailsCard.DepositDetails} layout="centered" />
+
+<ArgTypes of={ActivityDetailsCard.DepositDetails} />
+
+#### [Withdraw Details](?path=/story/activity-components-activitydetailscard--withdraw-details)
+
+<Canvas of={ActivityDetailsCard.WithdrawDetails} layout="centered" />
+
+<ArgTypes of={ActivityDetailsCard.WithdrawDetails} />

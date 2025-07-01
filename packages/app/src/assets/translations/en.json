@@ -1,0 +1,732 @@
+{
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "decline": "Decline",
+  "date": "Date",
+  "select": "Select",
+  "search": "Search",
+  "priceChart": "Price Chart",
+  "depthChart": "Depth Chart",
+  "candle": "Candle",
+  "area": "Area",
+  "lastPrice": "Last Price",
+  "volume": "Volume",
+  "bid": "Bid",
+  "selectAccount": "Select Account",
+  "selectAsset": "Select Asset",
+  "ask": "Ask",
+  "edit": "Edit",
+  "change": "Change",
+  "24HrHigh": "24 Hr High",
+  "24HrLow": "24 Hr Low",
+  "orderBook": "Order Book",
+  "recentTrades": "Recent Trades",
+  "recentActivity": "Recent Activity",
+  "bought": "Bought",
+  "buy": "Buy",
+  "sell": "Sell",
+  "sold": "Sold",
+  "send": "Send",
+  "receive": "Receive",
+  "convert": "Convert",
+  "time": "Time",
+  "finalQuantity": "Final %{symbol} Quantity",
+  "finalValue": "Final %{symbol} Value",
+  "lackOfFunds": "You don't have enough funds",
+  "qty": "Qty",
+  "pair": "Pair",
+  "price": "Price",
+  "chg": "Chg",
+  "amount": "Amount",
+  "limitPrice": "Limit Price",
+  "orderTotal": "Order Total",
+  "orderType": "Order Type",
+  "transactionCost": "Transaction Cost",
+  "fees": "Fees",
+  "fee": "Fee",
+  "max": "MAX",
+  "tif": "Time in Force",
+  "noItems": "No items to show",
+  "deposit": "Deposit",
+  "withdraw": "Withdraw",
+  "screens": {
+    "home": "Dashboard",
+    "dashboard": "Dashboard",
+    "markets": "Markets",
+    "wallet": "Wallet",
+    "activity": "Activity",
+    "profile": "Profile",
+    "walletDetail": "Wallet Details",
+    "pairDetails": "Pair Details",
+    "activityDetails": "Activity",
+    "confirmPassword": "Confirm Password",
+    "trade": "Trade"
+  },
+  "formError": {
+    "empty": "Can not be empty",
+    "common": "Oops, something wrong...",
+    "passwordValidation": "Must contain One Uppercase, One Lowercase, One Number and one special case Character",
+    "confirmPasswordValidation": "Passwords don't match",
+    "checkboxValidation": "Field must be checked",
+    "radioValidation": "A radio option is required",
+    "emailValidation": "Invalid email format",
+    "numberTypeError": "Invalid value",
+    "numericOnly": "Only digits allowed",
+    "positiveNumberError": "Value should be greater than zero",
+    "lackOfFunds": "You don't have enough funds",
+    "notPersonalEmail": "You can't use your own email as receiver address",
+    "invalidCryptoAddress": "Invalid %{symbol} address",
+    "selectDifferentAccounts": "Please select different To and From Accounts",
+    "exceedsMaxAmount": "Buy Amount exceeds the Max Buy Amount. Please verify and try again."
+  },
+  "common": {
+    "and": "and",
+    "user": "User",
+    "region": "Region",
+    "name": "Name",
+    "username": "Username",
+    "email": "Email",
+    "country": "Country",
+    "currency": "Currency",
+    "language": "Language",
+    "profile": "Profile",
+    "security": "Security",
+    "sendEmail": "Send Email",
+    "update": "Update",
+    "displayCurrency": "Display Currency",
+    "close": "Close",
+    "requirements": "Requirements",
+    "success": "Success",
+    "tryAgain": "Try Again",
+    "ok": "OK",
+    "yes": "Yes",
+    "no": "No",
+    "2faCode": "Token",
+    "error": "Error",
+    "unknownError": "Unknown Error occurred",
+    "invalid2FaCode": "Invalid two-factor token",
+    "activity": "Activity",
+    "appVersion": "App Version: %{version}",
+    "versionCopied": "Version copied",
+    "withdraw": "Withdraw",
+    "deposit": "Deposit",
+    "transfer": "Transfer",
+    "search": "Search"
+  },
+  "transaction": {
+    "marketPrice": "Market Price",
+    "net": "Net",
+    "empty": "Please select an asset to begin\nyour transaction.",
+    "orderSuccess": "Your order has been accepted",
+    "fields": {
+      "stopPrice": "Stop Price",
+      "template": "Template",
+      "externalAddress": "Wallet Address",
+      "comment": "Comment",
+      "externalAddressPlaceholder": "Select External Address"
+    },
+    "leverage": {
+      "description": "After the adjustment, your %{name} will change accordingly.",
+      "heading": "Cross Margin Leverage",
+      "noLeverage": "No Leverage"
+    },
+    "orderType": {
+      "market": "Market",
+      "limit": "Limit",
+      "stopMarket": "Stop Market",
+      "stopLimit": "Stop Limit"
+    },
+    "summary": {
+      "quantity": "Quantity",
+      "value": "Value",
+      "limitPrice": "Limit Price",
+      "market": "Market Price",
+      "fee": "Fee",
+      "total": "Order Total",
+      "net": "Net",
+      "balance": "Your %{symbol} balance",
+      "amountSend": "Amount to Send",
+      "remainingBalance": "Remaining Balance",
+      "borrowingAmount": "Borrowing Amount",
+      "hourlyInterest": "Hourly Interest",
+      "maxBuyAmount": "Max Buy Amount",
+      "maxSellAmount": "Max Sell Amount",
+      "leverage": "Leverage",
+      "stopPrice": "Stop Price",
+      "netReceiving": "Net Receiving",
+      "orderType": {
+        "market": "Market Order",
+        "limit": "Limit Order",
+        "stopMarket": "Stop Market",
+        "stopLimit": "Stop Limit"
+      }
+    },
+    "tif": {
+      "gtc": "GTC: Good Til Canceled",
+      "ioc": "IOC: Immediate or Cancel",
+      "fok": "FOK: Fill or Kill"
+    },
+    "sendTab": {
+      "withdraw": "External Wallet",
+      "transfer": "Email Address"
+    },
+    "receiveTab": {
+      "deposit": "My Wallet",
+      "transfer": "Friend"
+    },
+    "confirmWith2FaTitle": "Two-Factor Confirmation",
+    "depositTab": {
+      "external": "External Account",
+      "send": "Request"
+    },
+    "withdrawTab": {
+      "external": "External Account",
+      "send": "Send"
+    },
+    "deposit": {
+      "amount": "Amount",
+      "account": "Account",
+      "routingNumber": "Routing Number",
+      "confirmAmountLabel": "%{symbol} to Deposit",
+      "note": "Add a Note (Optional)",
+      "noteLabel": "Note",
+      "emailAddress": "Email Address",
+      "ExternalConfirmTitle": "External Deposit",
+      "RequestConfirmTitle": "Request Deposit",
+      "externalSuccess": "Successful Deposit",
+      "requestSuccess": "Successful Deposit",
+      "requestButton": "Request Deposit",
+      "SendConfirmTitle": "Confirm Deposit"
+    },
+    "withdraw": {
+      "amount": "Amount",
+      "account": "Account",
+      "routingNumber": "Routing Number",
+      "confirmAmountLabel": "%{symbol} to Withdraw",
+      "note": "Add a Note (Optional)",
+      "noteLabel": "Note",
+      "emailAddress": "Email Address",
+      "ExternalConfirmTitle": "External Withdraw",
+      "RequestConfirmTitle": "Request Withdraw",
+      "externalSuccess": "Successful Withdraw",
+      "requestSuccess": "Successful Withdraw",
+      "requestButton": "Request Withdraw",
+      "SendConfirmTitle": "Confirm Withdraw"
+    }
+  },
+  "auth": {
+    "formField": {
+      "userName": "User name",
+      "password": "Password",
+      "passwordConfirm": "Confirm Password",
+      "token": "Token",
+      "email": "Email"
+    },
+    "troubles": {
+      "forgotPwdSuccess": "Check Your Email For Reset Password Link",
+      "resendVerificationSuccess": "Check Your Email For An Account Verification Email"
+    },
+    "loginScreen": {
+      "login": "Log In",
+      "signUp": "Sign up",
+      "register": "Register",
+      "sendEmail": "Send Email",
+      "update": "Update",
+      "welcome": "Welcome to AlphaPoint!",
+      "troublelog": "Trouble logging in?",
+      "backToLog": "Back to Log In & Sign Up",
+      "authenticatorTitle": "Two-Factor Authentication",
+      "authenticatorTitle2": "Enter the token from the Authenticator app.",
+      "updatePasswordTitle": "Update Password",
+      "updatePasswordTitle2": "Choose a password that has a special character, number, and capital letter.",
+      "troublelogTitle2-email": "Select your issue type and provide us with your email address. We will follow up with a solution shortly.",
+      "troublelogTitle2-userName": "Select your issue type and provide us with your username. We will follow up with a solution shortly.",
+      "troublelogForgotPassword": "I'm an existing user and I forgot my password.",
+      "troublelogVerificationEmail": "I'm a new user and I haven't received my verification email.",
+      "signUpAcceptText": "By Clicking Sign Up you accept",
+      "termsAndConditions": "Terms and Conditions",
+      "privacyPolicy": "Privacy Policy"
+    },
+    "signUpModal": {
+      "title": "Welcome to AlphaPoint",
+      "text": "Thanks for signing up to be a member of the AlphaPoint Exchange. We look forward to your participation in the world of decentralized finance.\n\nCheck your email to verify your account!"
+    },
+    "logout": "Sign Out",
+    "biometrics": {
+      "title": "APEX",
+      "confirm": "Confirm fingerprint",
+      "setupModal": {
+        "title": "Set up your biometric login",
+        "text": "Log in quickly and securely using your fingerprint or face authentication.\n\nKeep in mind, anyone with biometrics stored on your device will be able to access your accounts.",
+        "button": "Setup Biometrics",
+        "skip": "Skip Biometrics"
+      },
+      "login": {
+        "title": "Welcome back!",
+        "titleName": "Welcome back, %{userName}!",
+        "button": "Log In with Biometrics",
+        "userNameAndPassword": "Log In with Username and Password",
+        "footer": "Not you?"
+      },
+      "setup": {
+        "title": "Biometric Login",
+        "text": "Do you want Biometric login turned on for this device?",
+        "button": "Manage"
+      }
+    }
+  },
+  "tabs": {
+    "header": "AlphaPoint",
+    "dashboard": "Dashboard",
+    "markets": "Markets",
+    "wallet": "Wallet",
+    "profile": "Profile"
+  },
+  "dashboard": {
+    "prices": "Prices",
+    "walletBalances": "Wallet Balances",
+    "recentActivity": "Recent Activity",
+    "bought": "Bought",
+    "sold": "Sold",
+    "balanceLabel": "Your Balance:",
+    "welcomeUsername": "Hi, %{username}",
+    "newsFeed": "News"
+  },
+  "wallet": {
+    "assets": "Assets",
+    "yourCryptoBalance": "Your %{ProductSymbol} Balance",
+    "balance": "Balance",
+    "modifyWalletList": "Modify Wallet List",
+    "availableBalance": "Available Balance",
+    "hold": "Hold",
+    "pendingDeposits": "Pending Deposits",
+    "totalBalance": "Total Balance",
+    "details": "Details",
+    "tabs": {
+      "spot": "Spot",
+      "margin": "Margin"
+    },
+    "marginChart": {
+      "viewMore": "View More",
+      "hideLegend": "Hide Legend",
+      "collateralValue": "Collateral Assets Value",
+      "positionsValue": "Margin Positions Value",
+      "pnlLabel": "Margin Positions PnL",
+      "marginCallMarker": "Margin Call Marker",
+      "liquidationMarker": "Liquidation Marker",
+      "accountDetailsModal": {
+        "heading": "Account Details",
+        "content": "Account Details"
+      }
+    },
+    "marginRisk": {
+      "liquidation": "In Liquidation",
+      "marginCall": "Margin Call",
+      "verylow": "Very Low",
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "veryHigh": "Very High"
+    }
+  },
+  "profile": {
+    "tabs": {
+      "profile": "Profile",
+      "security": "Security",
+      "verification": "Verification",
+      "margin": "Margin",
+      "affiliate": "Affiliate"
+    },
+    "hiUser": "Hi, %{user}!",
+    "userDetails": "User Details",
+    "regionDetails": "Region Details",
+    "colorSchemeHeading": "Theme",
+    "colorScheme": {
+      "system": "Auto",
+      "dark": "Dark",
+      "light": "Light"
+    },
+    "reset": {
+      "password": "Password Reset",
+      "passwordText": "To change your password, we will send you an email that will allow you to access our Reset Password feature. Click the button below to receive the email.",
+      "sendEmail": "Send Email",
+      "emailSentHeader": "Password reset email sent",
+      "emailSentText": "Check your email with instructions on changing your password."
+    },
+    "2fa": {
+      "enabled": {
+        "title": "Manage Two-Factor Authentication",
+        "text": "Two-Factor Authorization (2FA) adds another layer of protection to your account by requiring an additional passcode during the logging in process.\n\nYou will need to download Google Authenticator on your smartphone as part of the process to enable 2FA.",
+        "btn": "Manage"
+      },
+      "disabled": {
+        "title": "Enable Two-Factor Authentication",
+        "text": "Two-Factor Authorization (2FA) adds another layer of protection to your account by requiring an additional passcode during the logging in process.\n\nYou will need to download Google Authenticator on your smartphone as part of the process to enable 2FA.\n\nYou will then need to go to the web exchange and then turn on the 2FA setting there prior to enabling on your mobile device.",
+        "btn": "Enable 2FA"
+      },
+      "manage": {
+        "title": "Two-Factor Authentication",
+        "text": "Do you want Two-Factor Authentication turned on for this device?"
+      },
+      "disable": {
+        "title": "Disable Two-Factor Authentication",
+        "text": "Do you want Two-Factor Authentication turned off for this device?"
+      }
+    },
+    "verification": {
+      "yourLevel": "Your Verification Level:",
+      "level": "Level %{level}",
+      "kycButtonLabel": {
+        "level1": "Increase to Level 1",
+        "level2": "Increase to Level 2"
+      },
+      "kycCard": {
+        "level0": {
+          "content": "You must verify your phone in order to increase your limits and have access to all functionalities",
+          "button": "Increase to Level 1"
+        },
+        "level1": {
+          "content": "In order to increase your limits you must provide and verify an ID",
+          "button": "Increase to Level 2"
+        },
+        "level2": {
+          "content": "Your account is completely verified",
+          "button": "Max Verification Level"
+        }
+      },
+      "cardHeader": "KYC - Level %{level}",
+      "currentBenefits": "Current Benefits",
+      "addBenefits": "Additional Benefits",
+      "item": "• %{item}",
+      "underReview": "Application is under review",
+      "fail": "Last application failed",
+      "notVerified": "Not verified",
+      "levelsDescription": {
+        "level0": {
+          "requirements": "• Register as an exchange user and verify your email",
+          "benefits": "• Exchange access\n• Limited capacity for Deposit / Withdraw / Trading"
+        },
+        "level1": {
+          "requirements": "• Phone verification and selfie",
+          "benefits": "• $2000 Deposits and Withdrawals\n• $10,000 Buy and Sell Limits"
+        },
+        "level2": {
+          "requirements": "• ID verification and selfie",
+          "benefits": "• Unlimited Deposits and Withdraws\n• $50,000 Buy and Sell Limits"
+        }
+      },
+      "widgetTitle": "Verify Your Identity",
+      "widgetText": "To trade on the exchange or transfer crypto assets on AlphaPoint exchange, you must verify your Identity"
+    },
+    "language": {
+      "selectLanguage": "Select which language you prefer"
+    },
+    "confirmPassword": {
+      "cardTitle": "Confirm your Password",
+      "cardMessage": "Please, enter your password to verify your account",
+      "passwordLabel": "Current Password",
+      "submitButton": "Submit"
+    },
+    "affiliate": {
+      "title": "AlphaPoint Affiliate Program",
+      "subTitle": "The AlphaPoint affiliate program lets you earn a bonus for each successful referral registered to your account.",
+      "tagCard": {
+        "title": "Affiliate Tag",
+        "create": "Create Affiliate Tag",
+        "edit": "Edit Affiliate Tag",
+        "content": "Create an affiliate link below, copy it and email to a friend.\n\nYour friends can click on the affiliate link and sign up for an account, at which point you will see the number of affliates increase on this page."
+      },
+      "activeAffiliates": {
+        "title": "Active Affiliates",
+        "content": "# of Afilliates"
+      },
+      "createTagModal": {
+        "editTitle": "Edit Affiliate Tag",
+        "createTitle": "Create Affiliate Tag",
+        "placeholder": "Input New Tag",
+        "edit": "Edit Tag",
+        "create": "Create Tag",
+        "success": "Your tag has been edited successfully.",
+        "error": "There was an error editing your tag."
+      },
+      "copyTag": "The affiliate link has been copied to the clipboard."
+    },
+    "margin": {
+      "heading": "Margin Trading",
+      "introText": "Margin trading is the process by which a trader borrows money from the AlphaPoint Exchange in order to either buy or sell more assets than that trader would otherwise be able to afford.",
+      "requestAccountSuccess": "Your margin account has been activated successfully",
+      "notAllowedHeading": "You are not eligible for enabling margin.",
+      "notAllowedText": "You are not eligible for enabling Margin Trading. Please contact the support team if you have questions about prerequisites to enable margin.",
+      "notEnoughFundsHeading": "You do not have enough funds in your spot account to enable margin.",
+      "notEnoughFundsText": "The minimum value in any asset in your spot account converted to Base Asset must be {{value}} {{symbol}}.",
+      "notEligibleAndNoFundsHeading": "You are not eligible for enabling margin and you do not have enough funds in your spot account to enable margin.",
+      "notEligibleAndNoFundsText": "You are not eligible for enabling Margin Trading. Please contact the support team if you have questions about prerequisites to enable margin.\n\nAlso, the minimum value in any asset in your spot account converted to Base Asset must be {{value}} {{symbol}}.",
+      "accountFrozenHeading": "You are not eligible for enabling Margin Trading.",
+      "accountFrozenText": " Please contact the support team if you have questions about prerequisites to enable margin.",
+      "statusLabel": "Margin Trading is",
+      "statusEnabled": "enabled",
+      "statusDisabled": "disabled",
+      "applyButton": "Enable",
+      "confirmButton": "Accept Terms",
+      "declineButton": "Decline",
+      "termsModalTitle": "Margin Terms & Conditions",
+      "declineModalText": "Margin trading has not been enabled.\n\nTo start using the margin feature you must accept the Margin Terms & Conditions.",
+      "errorModalText": "There was an error enabling margin trading",
+      "successModalText": "Margin trading has been enabled.\n\nYou can now trade with margin on the Pairs that have it enabled.",
+      "termsCheckboxLabel": "I've read all Terms & Conditions",
+      "termsText": "Terms & Conditions for Margin Trading\n1. Introduction\nThese Terms & Conditions (\"Terms\") govern your use of the margin trading services (\"Services\") offered by APEX (\"the Platform\"). By using the Services, you agree to be bound by these Terms. If you do not agree to these Terms, you must not access or use the Services.\n2. Eligibility\nTo use the Services, you must:\nBe at least 18 years old (or the legal age in your jurisdiction).\nHave completed the required verification process (KYC).\nHave sufficient funds in your account to meet margin requirements.\nAcknowledge and understand the risks associated with margin trading.\n3. Risk Disclosure\nMargin trading involves a high level of risk, including the potential loss of all invested capital. By using the Platform, you acknowledge the following:\nYou understand that leveraging increases both potential profits and losses.\nMarket conditions may fluctuate rapidly, leading to substantial losses.\nYou are responsible for monitoring your positions and ensuring compliance with margin requirements.\nAPEX is not responsible for any losses incurred as a result of market movements or margin calls.\n4. Account and Margin Requirements\n4.1 Account Balance You must maintain sufficient funds in your account to cover the margin requirements set by the Platform. Margin requirements are subject to change based on market volatility, regulatory requirements, or Platform discretion.\n4.2 Margin Calls If the value of your account falls below the required margin level, the Platform may issue a margin call, requiring you to deposit additional funds or close your positions. If you do not meet the margin call, the Platform reserves the right to liquidate your positions without further notice.\n4.3 Leverage The maximum leverage available on the Platform is subject to change and may vary based on the asset class being traded. You are responsible for understanding the leverage applied to your trades.\n5. Fees and Charges\nThe Platform may charge fees for using its Services, including, but not limited to:\nTrading fees for each transaction.\nInterest charges on borrowed funds used in margin trading. All fees are subject to change and will be updated on the Platform's Fee Schedule.\n6. Order Execution\nAll orders placed through the Platform are subject to market conditions, availability of liquidity, and the Platform's execution capabilities.\nThe Platform does not guarantee that any order will be executed at the desired price. Slippage, partial fills, and delays may occur during periods of high market volatility.\n7. Account Monitoring and Responsibility\nYou are responsible for: Monitoring your account balance and open positions. Ensuring that you meet all margin requirements.\nUnderstanding the mechanics of margin trading and the risks involved.\n8. Platform Rights and Obligations\n8.1 Modifications to Services\nThe Platform reserves the right to modify, suspend, or discontinue any part of the Services at any time without prior notice.\n8.2 Account Suspension and Termination The Platform may, at its discretion, suspend or terminate your account in the event of: Violation of these Terms. Failure to meet margin requirements. Suspected fraudulent or illegal activity. Regulatory requirements.\n8.3 Force Majeure The Platform shall not be held liable for delays or failure in performance resulting from acts beyond its reasonable control, including, but not limited to, market disruptions, communication failures, or regulatory changes.\n9. Dispute Resolution\nAny disputes arising from the use of the Platform shall be resolved through arbitration in accordance with the rules of [Arbitration Body]. The decision of the arbitrator shall be final and binding.\n10. Governing Law\nThese Terms shall be governed by and construed in accordance with the laws of [Jurisdiction], without regard to its conflict of law principles.\n11. Amendments to the Terms\nThe Platform reserves the right to amend these Terms at any time. Any changes will be communicated to you through Email. Your continued use of the Platform after the changes take effect constitutes your acceptance of the new Terms.\n12. Privacy Policy\nYour personal data will be processed in accordance with the Platform's [Privacy Policy]. You agree to the collection, use, and storage of your personal information as outlined in the policy.\n13. Limitation of Liability\nThe Platform shall not be liable for any direct, indirect, incidental, or consequential damages resulting from the use or inability to use the Services, including, but not limited to, loss of profits, loss of data, or system failures.\n14. Indemnification\nYou agree to indemnify and hold APEX, its affiliates, officers, directors, employees, and agents harmless from any claims, liabilities, damages, or expenses (including legal fees) arising out of your use of the Services, violation of these Terms, or infringement of any third-party rights.\n15. Contact Information\nFor any inquiries or issues related to these Terms or the Platform's Services, you may contact us at:\nEmail: support@email.com\nPhone: +01 123456789\nAddress: APEX address\nAcknowledgment\nBy using the Platform, you acknowledge that you have read, understood, and agree to be bound by these Terms & Conditions.",
+      "viewTermsButton": "View Terms & Conditions"
+    }
+  },
+  "2faActivation": {
+    "qrCard": {
+      "title": "Two-Factor Authentication",
+      "text": "Copy and paste this QR code to the authenticator app of your choice.",
+      "btn": "Copy Manual Code",
+      "copyMsg": "Manual Code copied."
+    },
+    "codeCard": {
+      "title": "Activate Authenticator",
+      "text": "After you've added APEX to your authenticator app, copy the Authenticator generator code here"
+    }
+  },
+  "connection": {
+    "title": "Looks like there's no\ninternet connection.",
+    "text": "You can try again now, or wait until later."
+  },
+  "transactions": {
+    "asset": "Asset",
+    "externalWallet": "External Wallet",
+    "emailAddress": "Email Address",
+    "walletAddress": "Wallet Address",
+    "amount": "Amount",
+    "yourBalance": "Your Current Balance",
+    "amountSend": "Amount To Send",
+    "remainingBalance": "Remaining Balance",
+    "sendAssets": "Send Assets",
+    "sent": "Sent",
+    "value": "Value",
+    "note": "Note",
+    "send": "Send",
+    "receive": "Receive",
+    "receiveTransferConfirmTitle": "Request from Friend",
+    "receiveConfirmAmountLabel": "%{symbol} to Receive",
+    "sendTransferConfirmTitle": "Send to Email",
+    "sendWithdrawConfirmTitle": "Send to Wallet",
+    "sendConfirmAmountLabel": "%{symbol} to Send",
+    "withdrawSuccess": "Withdraw request is sent",
+    "transferSuccess": "You have successfully transferred ",
+    "convert": "Convert",
+    "friend": "Friend",
+    "requestAssets": "Request Assets",
+    "requesteesAddress": "Requestee's Address",
+    "scanToReceive": "Scan this QR code to receive funds:",
+    "orCopy": "Or copy this address:",
+    "walletAddressCopied": "Wallet address copied in clipboard",
+    "selectAsset": {
+      "receive": "Please select an asset to Receive",
+      "send": "Please select an asset to Send"
+    },
+    "convertAssets": "Convert Crypto Assets",
+    "balance": "Balance",
+    "toConvert": "%{symbol} to Convert",
+    "endingAmount": "Ending %{symbol} Amount",
+    "from": "From",
+    "to": "To",
+    "convert_button": "Convert",
+    "estimated_suffix": "(Est.)",
+    "accountTypeLabel": "Account Type",
+    "transferAssetsTitle": "Transfer Assets",
+    "accountFieldPlaceholder": "Select account",
+    "fromAccount": "From",
+    "toAccount": "To",
+    "transferButton": "Send",
+    "transferError": "Transfer unsuccessful"
+  },
+  "activity": {
+    "submitButton": "Submit",
+    "openOrders": "Open Orders",
+    "filledOrders": "Filled Orders",
+    "cancelledOrders": "Cancelled Orders",
+    "depositStatus": "Deposit Status",
+    "withdrawal": "Withdrawal",
+    "openPositions": "Margin Positions",
+    "closedPositions": "Closed Positions",
+    "emptyList": "No Activity",
+    "avgPrice": "Avg Price",
+    "limitPrice": "Limit Price",
+    "value": "Value",
+    "cancelOrder": "Cancel Order",
+    "cancelOrderModal": {
+      "heading": "Cancel Order",
+      "message": "Are you sure you want to cancel this order?"
+    },
+    "cancelRequest": "Cancel Request",
+    "refType": "Reference type",
+    "transactionType": "Transaction type",
+    "orderStatus": {
+      "working": "OPEN",
+      "rejected": "Rejected",
+      "canceled": "Cancelled",
+      "expired": "Expired",
+      "unknown": "Error",
+      "fullyExecuted": "Filled"
+    },
+    "itemType": {
+      "past": {
+        "buy": "Bought",
+        "sell": "Sold",
+        "short": "Shorted",
+        "receive": "Received",
+        "send": "Sent",
+        "request": "Requested",
+        "deposit": "Deposited",
+        "withdraw": "Withdrew",
+        "unknown": "Unknown"
+      },
+      "present": {
+        "buy": "Buying",
+        "sell": "Selling",
+        "short": "Shorting",
+        "receive": "Receiving",
+        "send": "Sending",
+        "request": "Requesting",
+        "deposit": "Depositing",
+        "withdraw": "Withdrawing"
+      }
+    },
+    "marginPosition": {
+      "amount": "Pos. (%{symbol})",
+      "amountShort": "Position",
+      "value": "Pos. Value (%{symbol})",
+      "valueShort": "Pos. Value",
+      "borrowed": "Borrowed",
+      "costBasis": "Cost Basis",
+      "interestAccured": "Interest Accrued",
+      "realizedPnL": "Real. PnL",
+      "unrealizedPnL": "Unrealized P&L",
+      "pnlShort": "PnL",
+      "pair": "Pair",
+      "position": "Position",
+      "size": "Size",
+      "positionValue": "Position Value",
+      "remainingLiability": "Remaining Liability",
+      "closeButton": "Close Position",
+      "cancelButton": "Cancel Position",
+      "modalOptionHeader": {
+        "cancel": "Cancel Position",
+        "close": "Close Position",
+        "repay": "Repay Position"
+      }
+    },
+    "cancelMarginPositionModal": {
+      "heading": "Cancel Position",
+      "title": "Position Details",
+      "pair:": "Pair:",
+      "position:": "Position:",
+      "size:": "Size:",
+      "cost basis:": "Cost Basis:",
+      "position value:": "Position Value:",
+      "interest accrued:": "Interest Accrued:",
+      "unrealized PnL:": "Unrealized P&L:",
+      "message": "This position is not associated with any loan and can be canceled without further trading. Once canceled, the position's unrealized P&L will no longer be updated.",
+      "success": "Your %{PositionType} %{InstrumentSymbol} position has been cancelled succesfully.",
+      "failure": "There was an error cancelling your %{PositionType} %{InstrumentSymbol} position. Error Details: %{error}"
+    },
+    "closeMarginPositionModal": {
+      "heading": "Close Position",
+      "title": "Position Details",
+      "transationDetail": "Transaction Details",
+      "transactionPoint1": "\u2022 First, we will sell %{Product1} for %{Product2} to reduce position size.",
+      "transactionPoint2": "\u2022 Next, we will repay any remaining liability using your collateral assets in the following order:",
+      "message": "This position is not associated with any loan and can be closed without further trading. Once canceled, the position's unrealized P&L will no longer be updated.",
+      "success": "Your %{PositionType} %{InstrumentSymbol} position has been closed succesfully.",
+      "failure": "There was an error closing your %{PositionType} %{InstrumentSymbol} position. Error Details: %{error}"
+    }
+  },
+  "requests": {
+    "request": "Request",
+    "requestFrom": "Request from",
+    "note": "Notes",
+    "confirmRequest": "Confirm Request",
+    "declineRequest": "Decline Request",
+    "cryptoSent": "%{symbol} Sent",
+    "recipientName": "Recipient Username"
+  },
+  "marketingWidget": {
+    "margin": {
+      "title": "Introducing:\nMargin Trading",
+      "body": "Sign up to trade up to 5x your value.\nEasy hassle-free enrollment!",
+      "cta": "Get Started Now!"
+    },
+    "alphapoint_bonus": {
+      "title": "Earn $20 in your\ncrypto of choice!",
+      "body": "Learn how to use the AlphaPoint\ntrading system."
+    },
+    "apy_bonus": {
+      "title": "Earn interest in your\nBitcoin!",
+      "body": "By simply holding bitcoin in your\nAlphaPoint wallet, and opting into\nYield, you can earn up to 5.2% APY."
+    },
+    "send_gift": {
+      "title": "Gift crypto to your\nfriends and family!",
+      "body": "Send funds via email, and\nredeem upon signup."
+    },
+    "debit_cards": {
+      "title": "Crypto debit cards\ncoming soon!",
+      "body": "Introducing AlphaPoint Cards\nThe simplest way to pay with\ncrypto worldwide!"
+    }
+  },
+  "qr_scanner": {
+    "blocked_status": "Please, check the camera permissions for the app.",
+    "scan_title": "Scan QR Code"
+  },
+  "marginTrading": {
+    "balances": {
+      "heading": "Balances by Product",
+      "availableLabel": "Available",
+      "viewMoreLabel": "View More",
+      "hideSmallAmounts": "Hide Small Amounts",
+      "noAssetsToDisplay": "No assets to display"
+    },
+    "collateralFunds": {
+      "heading": "Collateral Funds by Asset",
+      "availableLabel": "Available"
+    },
+    "marginPositions": {
+      "heading": "Margin Positions by Asset",
+      "valuePnlLabel": "Value / PnL"
+    },
+    "chart": {
+      "collateralLabel": "Collateral Assets",
+      "marginPositionsLabel": "Margin Positions",
+      "pnlLabel": "Unrealized\nPnL"
+    },
+    "productDetails": {
+      "totalBalance": "Total Balance",
+      "availableBalance": "Available Balance",
+      "onHold": "On Hold",
+      "liability": "Liability",
+      "usedMargin": "Used Margin"
+    },
+    "accountDetails": {
+      "title": "Account Details",
+      "totalBalance": "Total Balance (USD)",
+      "afterHaircuts": "After Haircuts",
+      "marginEquity": "Margin Equity (USD)",
+      "todayPnL": "Today's P&L (USD)",
+      "maintenanceThreshold": "Maintenance Threshold (USD)",
+      "liability": "Liability (USD)",
+      "usedMargin": "Used Margin (USD)",
+      "usableMargin": "Usable Margin (USD)",
+      "ok": "Ok"
+    }
+  },
+  "tradeScreen": {
+    "activity": {
+      "all": "All Activities",
+      "trades": "Trades",
+      "recieved": "Received",
+      "sent": "Sent"
+    }
+  }
+}

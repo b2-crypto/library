@@ -1,0 +1,80 @@
+import { Meta, Canvas, Source, ArgTypes, Description } from '@storybook/blocks';
+import * as ActivityDetailsCard from './ActivityDetailsCard.stories';
+
+<Meta title="activity/Details/OrderDetails" />
+
+# OrderDetails
+
+**Table of Content**:
+
+- [Types](#types)
+- [Components](#components)
+- [Hooks](#hooks)
+
+
+## Types
+
+```tsx
+interface OrderActivity extends ActivityItem {
+  /* Describes the type of order this is. */
+  type: OrderType;
+  /* The current state of the order. */
+  status: OrderState;
+  /* Order instruments icons */
+  iconSymbols?: readonly [string, string];
+  /* The side of a trade. */
+  side: OrderSide;
+  /* The average executed price for the instrument in the order. */
+  avgPrice: number;
+  /* Limit price of the order */
+  limitPrice?: number;
+}
+
+type OrderType =
+  | 'Unknown'
+  | 'Market order'
+  | 'Limit'
+  | 'StopMarket'
+  | 'StopLimit'
+  | 'TrailingStopMarket'
+  | 'TrailingStopLimit'
+  | 'BlockTrade';
+
+type OrderState =
+  | 'Unknown'
+  | 'Working'
+  | 'Rejected'
+  | 'Canceled'
+  | 'Expired'
+  | 'FullyExecuted';
+
+type OrderSide = 'Buy' | 'Sell' | 'Short' | 'Unknown';
+```
+
+## Components
+
+### Activity Details Card
+
+This component renders the [activity details card](?path=/docs/activity-components-activitydetailscard-how-to-use--docs) with different styles and content based on the order status — open or filled.
+
+#### [Open Order Details](?path=/story/activity-components-activitydetailscard--open-order-details)
+
+<Canvas of={ActivityDetailsCard.OpenOrderDetails} layout="centered" />
+
+<ArgTypes of={ActivityDetailsCard.OpenOrderDetails} />
+
+#### [Filled Order Details](?path=/story/activity-components-activitydetailscard--filled-order-details)
+
+<Canvas of={ActivityDetailsCard.FilledOrderDetails} layout="centered" />
+
+<ArgTypes of={ActivityDetailsCard.FilledOrderDetails} />
+
+## Hooks
+
+### `useCancelOrderMutation()`
+
+This hook provides a wrapper for RTK mutation for  
+ order cancellation. Returns a tuple:
+
+- first item is a mutation callback, which accept object with `orderId` field
+- second item is RTK query state

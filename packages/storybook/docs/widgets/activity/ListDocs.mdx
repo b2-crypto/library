@@ -1,0 +1,304 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks';
+import { ActivityTabs } from '@apex-rn/library/features/Activity/molecules';
+import {
+CancelledOrdersTab,
+DepositStatusTab,
+FilledOrdersTab,
+OpenOrdersTab,
+RecentActivityTab,
+WithdrawStatusTab,
+} from '@apex-rn/library/features/Activity/templates';
+import * as ActivityListStories from './ActivityList.stories';
+
+<Meta title="activity/List/How to use" />
+
+# Activity Lists
+
+This document describes how to create screens or widgets with different lists of activity:
+
+* Orders (open/filled/cancelled)
+* Withdraws
+* Deposits
+* Transactions — just a combined list of different activities from above but without details.
+
+Table of contents
+
+* [Types](#types)
+* [Components and Widgets](#components-and-widgets)
+  * [ActivityTabs](#activitytabs)
+  * [ActivityList](#activitylist)
+  * [OpenOrdersTab](#openorderstab)
+  * [FilledOrdersTab](#filledorderstab)
+  * [CancelledOrdersTab](#cancelledorderstab)
+  * [WithdrawStatusTab](#withdrawstatustab)
+  * [DepositStatusTab](#depositstatustab)
+  * [RecentActivityTab](#recentactivitytab)
+  * [MarginPositionsTab](#marginpositionstab)
+
+## Types
+
+## Components and Widgets
+
+### ActivityTabs
+
+For the screen with tabs for different activity types you can use `ActivityTabs` component:
+
+```tsx
+import { ActivityTabs } from '@apex-rn/library/features/Activity/molecules';
+import {
+  DepositStatusTab,
+  FilledOrdersTab,
+  OpenOrdersTab,
+  WithdrawStatusTab,
+} from '@apex-rn/library/features/Activity/templates';
+
+const tabs = {
+  openOrders: OpenOrdersTab,
+  filledOrders: FilledOrdersTab,
+  depositStatus: DepositStatusTab,
+  withdrawal: WithdrawStatusTab,
+}
+
+export const ActivityScreen = ({ navigation }) => {
+  const renderTab = useCallback((tabName) => {
+    const Tab = tabs[tabName];
+    return <Tab 
+      depth={15} 
+      itemVariant="card" 
+      listContentStyle={{ paddingBottom: 100 }}
+      onActivityPress={props => {
+        navigation.navigate('ActivityDetails', props);
+      }}
+    />
+  }, [tabs, navigation]);
+
+  return (
+    <Screen>
+      <ActivityTabs
+        tabs={tabs}
+        renderTab={renderTab}
+      />
+    </Screen>
+  );
+};
+```
+
+<ArgTypes of={ActivityTabs} />
+
+`tabProps` parameter is an object with props for the tab component which will be 
+passed through to the active tab component. It consists of query hook options 
+and particularly the props for the list component itself.
+
+```ts
+type ActivityTabProps = {
+  /**
+   * List variant:
+   *  - `list` uses FlatList component
+   *  - `map` just renders it with `data.map` — should be used for small lists without the "load more" feature)
+   */
+  listVariant?: 'list' | 'map';
+  /**
+   * List item variant:
+   *  - `card` renders each item in the `Card` component
+   *  - `plain` renders items separated by simple dashed line)
+   */
+  itemVariant?: 'card' | 'plain';
+  /** Style props for the list component */
+  listContentStyle?: StyleProp<ViewStyle>;
+  /** Press callback for the item */
+  onActivityPress: (props: ActivityDetails) => void;
+};
+
+type ActivityInstrumentHook = {
+  /** How many items load per the page */
+  depth?: number;
+  /** How many items load per the page */
+  instrumentId?: number
+};
+```
+
+In the code example above you can see that there are some tab components provided by the app: 
+
+* `OpenOrdersTab`
+* `FilledOrdersTab`
+* `CancellledOrdersTab`
+* `DepositStatusTab`
+* `WithdrawStatusTab`
+* `MarginPositionsTab`
+* `ClosedMarginPositionsTab`
+
+Each tab component is a wrapper around the `ActivityList` componnet which loads 
+the appropriate data and pass it with the given tab props.
+
+### ActivityList
+
+This is a general component to render the list of the activities used by the tab components. 
+
+<Canvas of={ActivityListStories.OrderActivityList} layout="centered" />
+<ArgTypes of={ActivityListStories.OrderActivityList} />
+
+There is an `ActivityItemView` prop which accepts a component to render the item of the list. 
+There are following item components provided by `@apex-rn/library/features/Activity/organisms`:
+
+* `OrderItemView`
+* `WalletItemView`
+* `AccountTransactionItemView`
+
+They all expect the same props: 
+ * `item` — object inherited from `ActivityItem`
+ * `onPress: (item) => void` — handler for press event.
+
+### OpenOrdersTab
+
+This widget loads the open orders using `useOpenOrders` hook and renders them using `ActivityList` component.
+
+<ArgTypes of={OpenOrdersTab} />
+
+```ts
+type UseOpenOrdersReturn = { 
+  openOrders: Array<OrderActivity>;
+  isLoading: boolean;
+  isRefetching: boolean;
+  hasMore: boolean;
+  loadMore: () => void;
+  refetch: () => void;
+};
+
+function useOpenOrders(args: { depth: number; instrumentId: number }): UseOpenOrdersReturn;
+```
+
+`onActivityPress` props will be called with this payload: `{ type: 'order', item }`.
+
+### FilledOrdersTab
+
+This widget loads the filled orders using `useFilledOrders` hook and renders them using `ActivityList` component.
+
+<ArgTypes of={FilledOrdersTab} />
+
+```ts
+type UseFilledOrdersReturn = { 
+  filledOrders: Array<OrderActivity>;
+  isLoading: boolean;
+  isRefetching: boolean;
+  hasMore: boolean;
+  loadMore: () => void;
+  refetch: () => void;
+};
+
+function useFilledOrders(args: { depth: number; instrumentId: number }): UseFilledOrdersReturn;
+```
+
+`onActivityPress` props will be called with this payload: `{ type: 'order', item }`.
+
+
+### CancelledOrdersTab
+
+This widget loads the cancelled (rejected, cancelled, expired, unknown) orders 
+using `useCancelledOrders` hook and renders them using `ActivityList` component.
+
+<ArgTypes of={CancelledOrdersTab} />
+
+```ts
+type UseCanceledOrdersReturn = { 
+  cancelledOrders: Array<OrderActivity>;
+  isLoading: boolean;
+  isRefetching: boolean;
+  hasMore: boolean;
+  loadMore: () => void;
+  refetch: () => void;
+};
+
+function useCancelledOrders(args: { depth: number; instrumentId: number }): UseCancelledOrdersReturn;
+```
+
+`onActivityPress` props will be called with this payload: `{ type: 'order', item }`.
+
+### WithdrawStatusTab
+
+This widget loads the withdraw requests using `useWithdrawTickets` hook and renders them using `ActivityList` component.
+
+<ArgTypes of={WithdrawStatusTab} />
+
+```ts
+type UseWithdrawTicketsReturn = { 
+  withdrawTickets: Array<WalletActivity>;
+  isLoading: boolean;
+  isRefetching: boolean;
+  hasMore: boolean;
+  loadMore: () => void;
+  refetch: () => void;
+};
+
+function useWithdrawTickets(args: { depth: number; instrumentId: number }): UseWithdrawTicketsReturn;
+```
+
+`onActivityPress` props will be called with this payload: `{ type: 'wallet', item }`.
+
+### DepositStatusTab
+
+This widget loads the withdraw requests using `useDepositTickets` hook and renders them using `ActivityList` component.
+
+<ArgTypes of={DepositStatusTab} />
+
+```ts
+type UseDepositTicketsReturn = { 
+  depositTickets: Array<WalletActivity>;
+  isLoading: boolean;
+  isRefetching: boolean;
+  hasMore: boolean;
+  loadMore: () => void;
+  refetch: () => void;
+};
+
+function useDepositTickets(args: { depth: number; instrumentId: number }): UseDepositTicketsReturn;
+```
+
+`onActivityPress` props will be called with this payload: `{ type: 'wallet', item }`.
+
+### RecentActivityTab
+
+This widget loads the transactions using `useAccountTransactions` hook and renders them using `ActivityList` component.
+
+<ArgTypes of={RecentActivityTab} />
+
+```ts
+type UseAccountTransactionsReturn = { 
+  accountTransactions: Array<AccountTransactionActivity>;
+  isLoading: boolean;
+  isRefetching: boolean;
+  hasMore: boolean;
+  loadMore: () => void;
+  refetch: () => void;
+};
+
+function useAccountTransactions(args: { depth: number; instrumentId: number }): UseAccountTransactionsReturn;
+```
+
+`onActivityPress` props will be called with this payload: `{ type: 'accountTransaction', item }`.
+
+### MarginPositionsTab
+
+This widgets loads the open margin positions using `useOpenMarginPositions()` 
+and renders the `ActivityList` with `MarginPositionListItem` component.
+
+```ts
+type UseMarginPositionsReturn = { 
+  positions: Array<MarginPositionItem>;
+  isLoading: boolean;
+  isRefetching: boolean;
+  hasMore: boolean;
+  loadMore: () => void;
+  refetch: () => void;
+};
+
+function useOpenMarginPositions(args: { depth: number; instrumentId: number }): UseMarginPositionsReturn;
+```
+
+### ClosedMarginPositionsTab
+
+This widgets loads the closed margin positions using `useClosedMarginPositions()` 
+and renders the `ActivityList` with `MarginPositionItem` component.
+
+```ts
+function useClosedMarginPositions(args: { depth: number; instrumentId: number }): UseMarginPositionsReturn;
+```

@@ -1,0 +1,45 @@
+import { Meta, ArgTypes, ColorPalette, ColorItem } from '@storybook/addon-docs';
+import { defaultTheme, darkTheme } from '@apex-rn/library/theme';
+
+<Meta title="Getting Started/Theme" />
+
+# Theme
+
+- [Provided themes](#provided-themes)
+- [Custom theme](#custom-theme)
+- [Use theme config in component](#use-theme-in-your-components)
+
+## Provided themes
+
+By default the lib provides two themes: `defaultTheme` (light) and `darkTheme`.
+
+<ColorPalette>
+  {Object.keys(defaultTheme.colors).map(color => (
+    <ColorItem
+      title={color}
+      colors={{
+        light: defaultTheme.colors[color],
+        dark: darkTheme.colors[color],
+      }}
+    />
+  ))}
+</ColorPalette>
+
+## Custom theme
+
+You can create your own theme using `createApexTheme()` helper by passing your
+palette or only colors you want to override from the default (light) color palette.
+
+## Use theme in your components
+
+Use can use current theme configuration in your custom components like this:
+
+```tsx
+import { useTheme } from '@apex-rn/library/theme';
+
+const MyComponent = () => {
+  const { colors } = useTheme();
+
+  return <View style={{ borderColor: colors.formBorder }} />;
+};
+```

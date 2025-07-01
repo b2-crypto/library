@@ -1,0 +1,105 @@
+import { ArgTypes, Meta } from '@storybook/addon-docs';
+
+import { ApexProvider } from '@apex-rn/library/ApexProvider';
+
+<Meta title="Getting Started/Configuration" />
+
+# Configuration
+
+## `ApexProvider`
+
+Wrap the application with `ApexProvider` which configures the Redux store, language translations, etc.
+
+<ArgTypes of={ApexProvider} />
+
+```tsx
+import { defaultTheme, darkTheme, useColorMode } from '@apex-rn/library/theme';
+
+const App = () => {
+  const { colorMode } = useColorMode();
+  const appTheme = colorMode === 'dark' ? darkTheme : defaultTheme;
+
+  <GestureHandlerRootView>
+      <SafeAreaProvider>
+        <StatusBar
+          barStyle={colorMode === 'dark' ? 'light-content' : 'dark-content'}
+          translucent={Platform.OS === 'android'}
+          backgroundColor="transparent"
+        />
+        <ApexProvider
+          theme={appTheme}
+          onBootstrapFinish={RNBootSplash.hide}>
+          <RootNavigator />
+        </ApexProvider>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
+}
+```
+
+## Theme configuration
+
+You can use the provided `defaultTheme` and `darkTheme` or create your own theme
+configuration object using `createApexTheme` helper. [Read more](?path=/docs/getting-started-theme--docs).
+
+## Logo configuration
+
+In order to change the app logo, you can simply modify the `packages/app/src/assets/logo/Logo.svg`.
+Once the .svg file is modified, it will automatically update every place the Logo is implemented in.
+
+## Translations
+
+Provide available translations using the `setTranslations` function from the `helpers/i18n` module.
+It expects only one parameter `languages` of the following type:
+
+```ts
+Record<
+  string,
+  {
+    /** Language code (e.g. `en`, `es`, etc) */
+    tag: string;
+    /** Label of the translation (used in language switcher UI)  */
+    label: string;
+    isRTL?: boolean;
+    /** Function, that should return the dictionary — nested object of the key and translation strings */
+    getter: () => Dict
+  }
+>
+```
+
+Current user's language will be applied automatically during bootstrap.
+
+In order to avoid redundant rerenders of the navigation, it's recommended
+to render the `RootNavigator` once the bootstrap process is finished.
+
+```jsx
+const App = () => {
+    const [bootstrapFinished, setBootstrapState] = useState(false);
+
+    return <ApexProvider
+          {...config}
+          onBootstrapFinish={() => {
+            setBootstrapState(true);
+            RNBootSplash.hide();
+          }}>
+          {bootstrapFinished ? <RootNavigator /> : null }
+        </ApexProvider>
+};
+```
+
+Also, in order to correctly update the app's translation when the locale is changed,
+you can add a `key` prop with the current language to the `RootStack.Navigator`.
+
+```jsx
+
+const RootNavigation = () => {
+  const { data: config } = useUserConfig();
+  const language = config?.Language || getLanguage().tag;
+
+  return <NavigationContainer>
+      <RootStack.Navigator
+        key={language}>
+        {isAuthenticated ? userScreens : anonScreens}
+      </RootStack.Navigator>
+    </NavigationContainer>
+}
+```

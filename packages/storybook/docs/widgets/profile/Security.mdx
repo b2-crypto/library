@@ -1,0 +1,64 @@
+import { Meta, Canvas, Source, ArgTypes, Description } from '@storybook/blocks';
+import * as ThemeCardStory from './ThemeCard.stories';
+import {
+  PasswordResetCard,
+  TwoFactorCard,
+} from '@apex-rn/library/features/Profile';
+import { SecurityTab } from '@apex-rn/library/features/Profile';
+
+<Meta title="Profile/Security" />
+
+# Security
+
+This document describes a possible implementation of the security tab with "building blocks" provided by the library.
+
+**Table of Content**:
+
+- [Tab Layout](#tab-layout)
+- [Widgets and Components](#widgets-and-components)
+- [Hooks](#hooks)
+
+## Tab Layout
+
+The security tab can be created using provided components. Here is an example of the tab layout:
+
+```tsx
+const SecurityTab = ({ onEnableBiometric, ...props }) => (
+  <ScrollView>
+    <PasswordResetCard />
+    <BiometricWidget onEnable={onEnableBiometric} />
+    <TwoFactorCard {...props} />
+  </ScrollView>
+);
+```
+
+<ArgTypes of={SecurityTab} />
+
+## Widgets and Components
+
+### PasswordResetCard
+
+The widget is a wrapper around the [`Card`](?path=/story/components-card--card-with-header) component. It uses `useResetPasswordMutation()` hook to reset the user password.
+
+### BimetricWidget
+
+See more details in the [Biometric](?path=/docs/auth-biometric-how-to--docs#profile-widget) setup documentation.
+
+### TwoFactorCard
+
+This widget is a wrapper around the [`Card`](?path=/story/components-card--card-with-header) component. It provides a way to enable/disable two factor authentication and uses `useGetUserInfoQuery()` hook to get the user info.
+
+<ArgTypes of={TwoFactorCard} />
+
+## Hooks
+
+### `useResetPasswordMutation()`
+
+This hook provides a wrapper for RTK mutation for reset password. Returns a tuple:
+
+- first is a mutation callback, which accept object with `UserName` field
+- RTK query state
+
+### `useUserInfo()`
+
+A wrapper around RTK query to load user info for currenly logged in user.

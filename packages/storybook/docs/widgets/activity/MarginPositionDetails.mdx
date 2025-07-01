@@ -1,0 +1,39 @@
+import { Meta, Canvas, Source, ArgTypes, Description } from '@storybook/blocks';
+import * as MarginPositionCard from './MarginPositionCard.stories';
+
+<Meta title="activity/Details/MarginPositionDetails" />
+
+# Margin Position Details
+
+**Table of Content**:
+
+- [Types](#types)
+- [Components](#components)
+
+## Types
+
+```ts
+type MarginPositionItem = MarginPosition & {
+  /** added status based on the query (open or closed) of the positions */
+  Status: 'Open' | 'Closed';
+  PositionProductSymbol: string;
+  PositionProductDecimalPlaces: number;
+  BorrowedProductSymbol: string;
+  BorrowedProductDecimalPlaces: number;
+  NotionalProductSymbol: string;
+  NotionalProductDecimalPlaces: number;
+  InstrumentSymbol: string;
+  Product1Symbol: string;
+  Product2Symbol: string;
+};
+```
+
+## Components
+
+### MarginPositionCard
+
+This is a layout component to render the card with details of the Margin Position.
+
+<Canvas of={MarginPositionCard.MarginPositionCardStory} layout="centered" />
+
+<ArgTypes of={MarginPositionCard.MarginPositionCardStory} />

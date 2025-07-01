@@ -1,0 +1,144 @@
+{
+  "name": "@apex-rn/library",
+  "version": "1.3.3",
+  "scripts": {
+    "start": "tsc --watch",
+    "build": "tsc && cp -r assets/images dist/assets/",
+    "test": "jest",
+    "prepublishOnly": "rimraf dist && npm run test && npm run build"
+  },
+  "exports": {
+    "./ApexProvider": {
+      "default": "./dist/ApexProvider.js",
+      "types": "./dist/ApexProvider.d.ts"
+    },
+    "./bootstrap": {
+      "default": "./dist/bootstrap.js",
+      "types": "./dist/bootstrap.d.ts"
+    },
+    "./assets/icons": {
+      "default": "./dist/assets/icons/index.js",
+      "types": "./dist/assets/icons/index.d.ts"
+    },
+    "./components": {
+      "default": "./dist/components/index.js",
+      "types": "./dist/components/index.d.ts"
+    },
+    "./features/Auth": {
+      "default": "./dist/features/Auth/index.js",
+      "types": "./dist/features/Auth/index.d.ts"
+    },
+    "./features/Activity": {
+      "default": "./dist/features/Activity/index.js",
+      "types": "./dist/features/Activity/index.d.ts"
+    },
+    "./features/Dashboard": {
+      "default": "./dist/features/Dashboard/index.js",
+      "types": "./dist/features/Dashboard/index.d.ts"
+    },
+    "./features/Markets": {
+      "default": "./dist/features/Markets/index.js",
+      "types": "./dist/features/Markets/index.d.ts"
+    },
+    "./features/PairDetails": {
+      "default": "./dist/features/PairDetails/index.js",
+      "types": "./dist/features/PairDetails/index.d.ts"
+    },
+    "./features/Profile": {
+      "default": "./dist/features/Profile/index.js",
+      "types": "./dist/features/Profile/index.d.ts"
+    },
+    "./features/Transactions": {
+      "default": "./dist/features/Transactions/index.js",
+      "types": "./dist/features/Transactions/index.d.ts"
+    },
+    "./features/Wallet": {
+      "default": "./dist/features/Wallet/index.js",
+      "types": "./dist/features/Wallet/index.d.ts"
+    },
+    "./helpers": {
+      "default": "./dist/helpers/index.js",
+      "types": "./dist/helpers/index.d.ts"
+    },
+    "./hooks": {
+      "default": "./dist/hooks/index.js",
+      "types": "./dist/hooks/index.d.ts"
+    },
+    "./services": {
+      "default": "./dist/services/index.js",
+      "types": "./dist/services/index.d.ts"
+    },
+    "./stores": {
+      "default": "./dist/stores/index.js",
+      "types": "./dist/stores/index.d.ts"
+    },
+    "./theme": {
+      "default": "./dist/theme/index.js",
+      "types": "./dist/theme/index.d.ts"
+    },
+    "./types": {
+      "default": "./dist/types/index.js",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^3.1.0",
+    "@react-native-assets/slider": "^11.0.5",
+    "@react-native-clipboard/clipboard": "^1.16.1",
+    "@react-native-community/blur": "^4.4.1",
+    "@react-native-community/netinfo": "^11.4.1",
+    "@react-navigation/native": "^7.0.14",
+    "@reduxjs/toolkit": "^1.9.5",
+    "@shopify/flash-list": "^1.7.3",
+    "@shopify/restyle": "^2.4.4",
+    "@sumsub/react-native-mobilesdk-module": "^1.29.0",
+    "@wuba/react-native-echarts": "^1.3.1",
+    "alphapoint-apex-api": "^3.2.19",
+    "date-fns": "^2.29.3",
+    "echarts": "^5.4.1",
+    "i18n-js": "^4.1.1",
+    "lodash": "^4.17.21",
+    "react": "18.3.1",
+    "react-hook-form": "^7.51.2",
+    "react-native": "0.77.0",
+    "react-native-camera-kit": "^14.1.0",
+    "react-native-easy-biometrics": "^2.0.0",
+    "react-native-gesture-handler": "^2.24.0",
+    "react-native-keyboard-aware-scroll-view": "^0.9.5",
+    "react-native-linear-gradient": "^2.8.3",
+    "react-native-mmkv": "^3.2.0",
+    "react-native-modal": "^13.0.1",
+    "react-native-permissions": "^5.2.5",
+    "react-native-qrcode-svg": "^6.3.14",
+    "react-native-rss-parser": "https://github.com/berdyshev/react-native-rss-parser#patched",
+    "react-native-safe-area-context": "^5.2.0",
+    "react-native-svg": "^15.11.1",
+    "react-native-svg-transformer": "^1.5.0",
+    "react-native-swipe-gestures": "^1.0.5",
+    "react-native-toast-message": "^2.2.1",
+    "react-native-web-linear-gradient": "^1.1.2",
+    "react-number-format": "^5.3.0",
+    "react-redux": "^8.0.7",
+    "react-string-replace": "^1.1.1",
+    "redux-persist": "^6.0.0",
+    "trezor-address-validator": "https://github.com/berdyshev/rn-coins-address-validator#fix-segwit-both-networks",
+    "yup": "^1.2.0"
+  },
+  "devDependencies": {
+    "@react-native/typescript-config": "0.77.0",
+    "@tsconfig/react-native": "^3.0.2",
+    "@types/i18n-js": "^3.8.4",
+    "@types/lodash": "^4.14.186",
+    "@types/react": "^18.3.1",
+    "@types/react-native-rss-parser": "^1.4.0",
+    "fast-text-encoding": "^1.0.6",
+    "msw": "^2.2.3",
+    "react-native-url-polyfill": "^2.0.0",
+    "rimraf": "^5.0.5",
+    "typescript": "5.0.4"
+  },
+  "files": [
+    "dist/"
+  ],
+  "gitHead": "1d7c7ed39a704350eb7e208516308a4eceea5837"
+}

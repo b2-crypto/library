@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    "target": "ES2015",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "types": ["node", "jest"],
+    "isolatedModules": false,
+    "noUnusedLocals": false,
+    "composite": false
+  },
+  "include": ["**/*.test.ts", "**/*.test.tsx", "jest.config.cjs"],
+  "exclude": ["dist", "node_modules"]
+}

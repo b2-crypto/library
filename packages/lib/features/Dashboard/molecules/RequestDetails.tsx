@@ -1,0 +1,19 @@
+import React from 'react';
+import { DashedBox, Text } from '../../../components/atoms';
+import { translate } from '../../../helpers/i18n';
+import { RequestModel } from '../../../types/commonTypes';
+
+export const RequestDetails = ({ request }: { request: RequestModel }) => {
+  return (
+    <DashedBox paddingHorizontal="xl" paddingVertical="s" bottomDash>
+      <Text variant="captionReg" color="textSecondary">
+        {translate('requests.requestFrom')}
+      </Text>
+      <Text marginVertical="s">{request?.requestorUsername}</Text>
+      <Text variant="captionReg" color="textSecondary">
+        {translate('requests.note')}
+      </Text>
+      <Text marginVertical="s">{request?.note}</Text>
+    </DashedBox>
+  );
+};

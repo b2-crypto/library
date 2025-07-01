@@ -1,0 +1,41 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/Helvetica/COPYRIGHT.txt",
+      "sha1": "0b31af6a56eb8c05429df4c3182c21a50da863e0"
+    },
+    {
+      "path": "src/assets/fonts/Helvetica/helvetica_bold.otf",
+      "sha1": "8308f440dbc9552f1706480ec0108885bbe85cf9"
+    },
+    {
+      "path": "src/assets/fonts/Helvetica/helvetica_boldoblique.otf",
+      "sha1": "0d41e93643aae09f5f1e81043c4cf8f8de4100e1"
+    },
+    {
+      "path": "src/assets/fonts/Helvetica/helvetica_cyr_boldoblique.ttf",
+      "sha1": "1fd20327e3e55f75529f53c536c3cdaf9ace45e6"
+    },
+    {
+      "path": "src/assets/fonts/Helvetica/helvetica_cyr_oblique.ttf",
+      "sha1": "5db419dc6a7663fa592140e515c38dcdf7e392ab"
+    },
+    {
+      "path": "src/assets/fonts/Helvetica/helvetica_light.otf",
+      "sha1": "8ed460b51df250cea6bf94e467752687cf7e60a9"
+    },
+    {
+      "path": "src/assets/fonts/Helvetica/helvetica_lightoblique.otf",
+      "sha1": "3894fb882e131106817b5e330399078a8a135937"
+    },
+    {
+      "path": "src/assets/fonts/Helvetica/helvetica_oblique.otf",
+      "sha1": "e84e9444984c3fa174d0bb4ae269307539b5d9d2"
+    },
+    {
+      "path": "src/assets/fonts/Helvetica/helvetica_regular.otf",
+      "sha1": "3dbb130181d576b5293c97157285fb59a9b9fa66"
+    }
+  ]
+}

@@ -1,0 +1,199 @@
+import { ArgTypes, Canvas, Description, Meta } from '@storybook/blocks';
+import { ConvertFormBodyWidget } from "@apex-rn/library/features/Transactions";
+import { ConvertConfirm } from "@apex-rn/library/features/Transactions";
+import * as ConvertFormBody from './ConvertFormBody.stories';
+import * as ConvertFormHeader from './ConvertFormHeader.stories';
+
+<Meta title="transactions/Convert/How to Use" />
+
+# Convert (Simple Swap)
+
+This document describes a possible implementation of the Convert 
+(aka Simple Swap) feature with "building blocks" provided by the library.
+
+**Table of Content**:
+* [Form Layout](#form-layout)
+* [Types](#types)
+* [Widgets and Components](#widgets-and-components)
+* [Hooks](#hooks)
+
+
+
+
+
+## Form Layout
+
+The Convert form can be created using provided components, widgets and hooks. 
+Here is the example of the form layout. Below you can find more details on these pieces.
+
+```tsx
+const ConvertForm = ({ onClose, instruments, products, balances }) => {
+  const form = useConvertForm(undefined, { balances });
+  const { modalVisible, showModal, hideModal } = useModalControl();
+  const [sendOrder, { isLoading, error }] = useConvertSubmit();
+
+  return (
+    <FormProvider {...form}>
+      <ScrollView>
+        <ConvertFormHeader onClose={onClose} />
+        <ConvertFormBodyWidget
+          instruments={instruments}
+          products={products}
+        />
+        <ConvertSummaryWidget />
+        {error && (<SubmissionError error={error?.message} />)}
+        <Button
+          label="Convert"
+          disabled={!form.formState.isValid}
+          onPress={showModal}
+        />
+      </ScrollView>
+      <ModalBlurBg
+        isVisible={modalVisible}
+        onBackdropPress={hideModal}>
+        {!!modalVisible && (
+          <ConvertConfirm
+            values={form.getValues()}
+            onClose={hideModal}
+            submitting={isLoading}
+            onSubmit={form.handleSubmit(sendOrder)}
+          />
+        )}
+      </ModalBlurBg>
+    </FormProvider>
+  );
+}
+```
+
+## Types
+
+Common types for the Convert:
+
+
+```ts
+type ConvertFormValues = {
+  from: { productId: number; amount: string };
+  to: { productId: number; amount: string };
+};
+
+type AmountFieldAsset = {
+  /* Product ID */
+  id: number;
+  /* Product symbol */
+  symbol: string;
+  /* Full name of the product */
+  fullName: string;
+  /* Decimal places to show for the product amount */
+  decimalPlaces: number;
+  /* Type of the product */
+  type: 'fiat' | 'crypto';
+  /* How much a current user owns */
+  amount: number;
+  /* Rate to convert the product into notional currency */
+  notionalSymbol?: string;
+  /* Symbol for the notional currency (platform specific setting) */
+  notionalRate?: number;
+};
+```
+
+## Widgets and Components
+
+### ConvertFormHeader
+
+This is a component for the header of the Convert screen. 
+
+<Canvas of={ConvertFormHeader.ConvertFormHeaderStory} layout="centered" />
+
+#### Props
+<ArgTypes of={ConvertFormHeader.ConvertFormHeaderStory} />
+
+### ConvertFormBodyWidget
+
+This widget  accepts `useConvertFormBody` parameters as props and passes hook's return value into the [`ConvertFormBody`](?path=/story/transactions-convert-convertformbody--convert-form-body-story).
+
+#### ConvertFormBodyWidget Props
+<ArgTypes of={ConvertFormBodyWidget} />
+
+#### ConvertFormBody
+<Description of={ConvertFormBody} />
+<Canvas of={ConvertFormBody.ConvertFormBodyStory} layout="centered" />
+<ArgTypes of={ConvertFormBody.ConvertFormBodyStory} />
+
+### ConvertSummaryWidget
+
+This widget retrieves data for the order summary, shown by the `ConvertSummary` next to the form body.
+It doesn't accept any props, but uses form's context to get the form values and transform them into summary items.
+See also `useConvertOrderValues()`.
+It uses [`OrderSummary`](?path=/story/transactions-order-summary--order-summary-story) component for rendering.
+
+### ConvertConfirm
+
+This components renders the content for the confirm modal.
+
+### Props
+<ArgTypes of={ConvertConfirm} />
+
+
+## Hooks
+
+### `useConvertForm()`
+This is the wrapper around the React Hook Form's `useForm`. It should be used to instantiate a form
+and create a `FormProvider` for form's widgets (fields and group of fields).
+
+```tsx
+function useConvertForm(
+  initialValues?: Partial<OrderFormValues>,
+  validationContext?: { balances: Record<number, number> },
+): UseFormReturn;
+```
+
+`validationContext` has a `balances` that is a map of product IDs and their amount. 
+It is used to validate the maximum value of the `from` amount to not exceed the user's balance.
+Here is the example on how to get this `balances` object:
+
+```tsx
+const { data: wallets } = useWallets();
+const balances = useMemo(() => wallets.reduce((acc, w) => {
+  acc[w.ProductId] = w.Amount;
+  return acc;
+}, {}), [wallets]);
+```
+
+### `useConvertSubmit()`
+
+This hook provides a wrapper for RTK mutation for order submission. Returns a tuple:
+- first is a mutation callback, which accept form values (`ConvertFormValues`)
+- RTK query state
+
+### `useConvertFormBody()`
+
+```ts
+type UseConvertFormBodyArgs = {
+  instruments: Array<IInstrumentWithLevel1>;
+  products: Array<AmountFieldAsset>;
+};
+
+type UseConvertFormBodyReturn = {
+  /* Currently anchored field */
+  anchored: 'from' | 'to' | null;
+  /* Callback to change new anchored field */
+  setAnchored: (anchored) => void;
+  /* Available products for From field (used for dropdown options) */
+  fromProducts: Array<AmountFieldAsset>;
+  /* Available products for To field (used for dropdown options) */
+  toProducts: Array<AmountFieldAsset>;
+  /* Default (initial) product ID for the From field */
+  defaultFromProduct?: number;
+  /* Default (initial) product ID for the To field */
+  defaultToProduct?: number;
+}
+
+function useConvertFormBody(args: UserConvertFormBodyArgs): UseConvertFormBodyReturn;
+```
+
+### `useConvertOrderValues()`
+Transforms the `ConvertFormValues` into `OrderFormValues`.
+
+```ts
+function useConvertOrderValues(values: ConvertFormValues): OrderFormValues;
+```

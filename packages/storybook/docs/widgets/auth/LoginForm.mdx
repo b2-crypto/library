@@ -1,0 +1,52 @@
+import { Meta, Canvas, Source, ArgTypes, Description } from '@storybook/blocks';
+import { LoginTab, LoginForm } from '@apex-rn/library/features/Auth';
+
+<Meta title="Auth/Forms/Login" />
+
+# Login
+
+**Table of Content**:
+
+- [Types](#types)
+- [Components & Widgets](#components-and-widgets)
+- [Hooks](#hooks)
+
+## Types
+
+```tsx
+interface UserNameFormData {
+  userName: string;
+}
+
+interface PasswordFormData {
+  password: string;
+}
+
+interface LogInFormData extends UserNameFormData, PasswordFormData {}
+```
+
+## Components and Widgets
+
+### LoginForm
+
+Login form layout driven by react-hook-form's `useForm`.
+
+<ArgTypes of={LoginForm} />
+
+### LoginTab
+
+This is a wrapper around the `LoginForm` that provides `onSubmit` callback and other props. 
+Can be used as a separate screen content or as a tab.
+
+<ArgTypes of={LoginTab} />
+
+# Hooks
+
+### `useLogin()`
+
+This hook provides a wrapper for RTK mutation. 
+It accepts an optional callback that will be called when 2fa is required upon signup.  
+And it returns a tuple:
+
+- first item is a mutation callback, which accepts `LogInFormData` and returns a promise
+- second item is RTK query state

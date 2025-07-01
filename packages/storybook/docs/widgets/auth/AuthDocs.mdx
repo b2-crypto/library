@@ -1,0 +1,73 @@
+import { Meta, ArgTypes, Canvas } from '@storybook/blocks';
+
+import { AuthScreen, LoginTab } from '@apex-rn/library/features/Auth';
+import { Tabs } from '@apex-rn/library/components';
+import * as AuthScreenStory from './AuthScreen.stories';
+
+<Meta title="Auth/Screens/How to use" />
+
+# Auth
+
+This document describes how to create screens or widgets with different forms of auth:
+
+Table of contents
+
+- [Types](#types)
+- [Components and Widgets](#components-and-widgets)
+
+## Types
+
+## Components and Widgets
+
+### [AuthScreen](?path=/story/auth-screens-authscreen--auth-screen-story)
+
+This is a general layout for the auth screens.
+
+<Canvas of={AuthScreenStory.AuthScreenStory} layout="centered" />
+
+<ArgTypes of={AuthScreenStory.AuthScreenStory} exclude={[]} />
+
+Content of the screen (inside the white box) should be passed as a `children`.
+
+### Login and Sign In as tabs
+
+To render login and signin as tabs on the same screen you can use `Tabs` component:
+
+```tsx
+import {
+  LoginTab,
+  SignUpTab,
+} from '@apex-rn/library/features/Auth';
+
+const tabs = [
+  { value: 'login', label: 'Login' },
+  { value: 'signup', label: 'Sign Up' },
+]
+
+export const AuthLanding = ({ navigation }) => {
+  const [activeTab, setActiveTabId] = useState<'login' | 'signup'>('login');
+
+  return (
+    <AuthScreen>
+      <Tabs data={tabButtons} value={activeTab} onChange={setActiveTabId} />
+      {activeTab === 'login' ? (
+        <LoginTab
+          on2FARequired={() => navigation.navigate('Auth2FA')}
+          onBiometricSetup={() => navigation.navigate('BiometricSetup')} />
+      ) : (
+        <SignUpTab />
+      )}
+    </AuthScreen>
+  );
+};
+```
+
+Found here more details on [LoginTab](?path=/docs/auth-forms-login--docs#logintab)
+and [SignUpTab](?path=/docs/auth-forms-signup--docs#signuptab). Also, check the story for [Tabs](?path=/story/components-tabs--tabs-widget) component.
+
+## See more
+
+- [Login](?path=/docs/auth-forms-login--docs) screen implementation
+- [SignUp](?path=/docs/auth-forms-signup--docs) screen implementation
+- [Trouble Logging In](?path=/docs/auth-forms-trouble-logging-in--docs) screen implementation
+- [Update Password](?path=/docs/auth-forms-update-password--docs) screen implementation

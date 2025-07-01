@@ -1,0 +1,10 @@
+// prettier-ignore
+{
+  "extends": "@react-native/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@apex-rn/library": ["../lib"]
+    }
+  },
+  "references": [{ "path": "../lib" }]
+}

@@ -1,0 +1,66 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/blocks';
+import * as MarketsListStory from './MarketsList.stories';
+import { AssetInstrumentsList } from '@apex-rn/library/features/Markets'
+
+<Meta title="products/MarketsList/Docs" />
+
+# Markets listing
+
+**Table of Content**:
+
+- [Components and Widgets](#components-and-widgets)
+- [Hooks](#hooks)
+
+## Components and Widgets
+
+Depending on the configuration (whether Margin Trading is enabled for the platform) you can render the appropriate list of instruments with search and filtering using the following template widgets:
+
+* `AssetInstrumentsList` — used in the case Margin is not enabled
+* `MarginInstrumentsList` — used in the case Margin is enabled.
+
+To check whether Margin Trading is enabled you can use `useMarginEnabled` hook (see below).
+
+```jsx
+export const MarketsScreen = ({ navigation }) => {
+  const onSelectMarketListItem = useCallback(
+    (instrumentId) => navigation.navigate('PairDetails', { instrumentId }),
+    [navigation],
+  );
+
+  const ListComponent = useMarginEnabled()
+    ? MarginInstrumentsList
+    : AssetInstrumentsList;
+
+  return (
+    <Screen>
+      <ListComponent onItemPress={onSelectMarketListItem} />
+    </Screen>
+  );
+};
+```
+
+This will render the list with the predefined item component. Both components uses the same props:
+
+<ArgTypes of={AssetInstrumentsList} />
+
+### MarketsList
+
+If you need to use custom item component you can use `MarketsList` component and provide the component to render a list item via `ItemComponent` prop.
+
+<Canvas of={MarketsListStory.AssetMarketList} layout="centered" />
+<ArgTypes of={MarketsListStory} />
+
+The library provides two components for rendering the item — `AssetListItem`
+and `MarginListItem`. They look pretty the same, the only difference is that the
+`MarginListItem` renders also the Leverage value for the instruments that have
+it provided via `MarginEnabled` and `MarginInitialRequirements` properties.
+
+In that case you need to handle the data loading and filtering in your component.
+There are some helper hooks for that purpose (see below).
+
+## Hooks
+
+* `useMarginEnabled(): boolean` — checks if the Margin Trading is enabled for the current user.
+* `useInstrumentsList()` — loads instruments.
+* `useMarginInstrumentsList()` — loads instruments with the margin configuration.
+* `useFilteredInstruments(data)` — returns props for `MarketsList` component that enabled sorting and filtering for provided data. It also returns the filtered data list.

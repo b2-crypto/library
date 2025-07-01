@@ -1,0 +1,78 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks';
+import {
+  MarginWalletItem,
+  MarginAssetsWidget,
+  WalletsListWidget,
+} from '@apex-rn/library/features/Wallet';
+import * as BalanceCardStories from './BalanceCard.stories';
+import * as WalletDetailsTableStories from './WalletDetailsTable.stories';
+import * as WalletItemStories from './WalletItem.stories';
+import * as WalletsListStories from './WalletsList.stories';
+import * as WalletModalStories from './WalletsModal.stories';
+
+<Meta title="products/Wallets How To" />
+
+# User Wallets
+
+This document descibes components, widgets and hooks used to build the user wallets screens.
+
+## Wallets List
+
+The `WalletsListWidget` widget uses `useWallets` hook to load all user's balances for products and
+to render it grouped by `ProductType` into two categories (crypto and fiat) with `WalletsList` component.
+
+<ArgTypes of={WalletsListWidget} />
+
+### WalletsList
+
+<Canvas of={WalletsListStories.AllWalletsSectionList} layout="centered" />
+
+### WalletItem
+
+<Canvas of={WalletItemStories.WalletItemWidget} layout="centered" />
+<ArgTypes of={WalletItemStories} />
+
+## Visibile Wallets
+
+To allow for an user to manage visible wallets you can use `VisibleWalletsModalWidget` widget or `VisibleWalletsModal` component.
+The widget renders the Edit button which opens modal where user can select or unselect available wallets.
+The selection is stored in the redux's store, which is persisted in the MMKV storage.
+
+See the story for [VisibleWalletsModal](?path=/story/products-visiblewalletsmodal--wallet-modal-story).
+
+<ArgTypes of={WalletModalStories} />
+
+## Wallet details
+
+For wallet details the library provides following widgets (components):
+
+### BalanceCard
+
+This card renders user's balance for the currency.
+
+<Canvas of={BalanceCardStories.BalanceCardWidget} layout="centered" />
+<ArgTypes of={BalanceCardStories} />
+
+### WalletDetailsTable
+
+This component renders the list of user's amount per product: available balance, hold amount, pending deposits and total amount.
+
+<Canvas
+  of={WalletDetailsTableStories.WalletDetailsTableStory}
+  layout="centered"
+/>
+<ArgTypes of={WalletDetailsTableStories} />
+
+### Transactions
+
+Recent Activity widget can be rendered with `RecentActivityTab`. See more details in the [Activity documentation](?path=/docs/activity-list-how-to-use--docs#recentactivitytab)
+
+## Margin: Collateral Funds by Asset
+
+In case the Margin Trading feature is enabled for the app, you can use `MarginAssetsWidget` to display the list of collateral funds by asset (margin account balances).
+
+<ArgTypes of={MarginAssetsWidget} />
+
+It uses `useMarginBalances` hook to load the balances for the margin account (returns data of type `MarginWalletItemType[]`) and renders item with `MarginWalletItem`:
+
+<ArgTypes of={MarginWalletItem} />

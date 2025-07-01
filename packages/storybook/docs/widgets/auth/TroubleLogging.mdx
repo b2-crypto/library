@@ -1,0 +1,62 @@
+import { Meta, Canvas, Source, ArgTypes, Description } from '@storybook/blocks';
+import { TroubleLoggingForm } from '@apex-rn/library/features/Auth'
+
+<Meta title="Auth/Forms/Trouble Logging In" />
+
+# Trougble Logging In
+
+**Table of Content**:
+
+- [Types](#types)
+- [Components and Widgets](#components-and-widgets)
+- [Hooks](#hooks)
+
+## Types
+
+```tsx
+type FormValues = {
+  /** User name */
+  userName: string;
+  /** Email address */
+  email: string;
+  /** Issue type ('userName'||'email') */
+  issueType: string;
+};
+```
+
+## Components and Widgets
+
+### TroubleLoggingForm
+
+This is a form layout driver by the react-hook-form's `useForm`.
+It expects props provided by the `useTroubleLogging` hook.
+
+
+<ArgTypes of={TroubleLoggingForm} />
+
+
+## Hooks
+
+### `useTroubleLogging()`
+
+This hook provides a callback to reset an account's password. It supports two ways:
+
+1. send the verification email to the given email address
+2. send the reset password email by the given username.
+
+```ts
+
+type UseTroubleLoggingReturn = [
+  (payload: FormValues) => Promise<void>,
+  {
+    /** Error for reset verification email request */
+    resendError: undefined | FetchBaseQueryError,
+    /** Error for reset password request */
+    resetError: undefined | FetchBaseQueryError,
+    /** Loading state for both requests */
+    isLoading: boolean;
+  }
+]
+
+function useTroubleLogging(): UseTroubleLoggingReturn;
+```

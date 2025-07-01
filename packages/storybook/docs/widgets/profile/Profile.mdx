@@ -1,0 +1,162 @@
+import { Meta, Canvas, Source, ArgTypes, Description } from '@storybook/blocks';
+import * as ThemeCardStory from './ThemeCard.stories';
+import * as KYCCardStory from './KYCCard.stories';
+import { UserDetailsCard } from '@apex-rn/library/features/Profile';
+import { ProfileTab } from '@apex-rn/library/features/Profile';
+
+<Meta title="Profile/Profile" />
+
+# Profile
+
+This document describes a possible implementation of the profile tab with "building blocks" provided by the library.
+
+**Table of Content**:
+
+- [Tab Layout](#tab-layout)
+- [Widgets and Components](#widgets-and-components)
+- [Hooks](#hooks)
+
+## Tab Layout
+
+The profile tab can be created using provided components, widgets and hooks. Here is an example of the tab layout:
+
+```tsx
+export const ProfileTab = ({ languages }) => {
+  const logout = useLogout();
+  const { clearBiometrics } = useBiometrics();
+  const [userColorScheme, setColorScheme] = useStringValue(
+    STORAGE_KEYS.COLOR_SCHEME,
+  );
+
+  return (
+    <>
+      <Welcome />
+      <SectionHeading>{'User Details'}</SectionHeading>
+      <UserDetailsCard languages={languages} />
+      <ThemeCard
+        value={userColorScheme || 'system'}
+        onChange={value => setColorScheme(value)}
+      />
+      <Button
+        label={'Logout'}
+        onPress={() => {
+          clearBiometrics();
+          logout();
+        }}
+      />
+    </>
+  );
+};
+```
+
+<ArgTypes of={ProfileTab} />
+
+```tsx
+/** List of available languages */
+type Languages = Record<
+  string,
+  { tag: string; label: string; isRTL?: boolean; getter: () => Dict }
+>;
+```
+
+## Widgets and Components
+
+### UserDetailsCard
+
+The widget is a wrapper around the [`ProfileDataCard`](?path=/story/user-profiledatacard--profile-card) component. It provides a way to display user details, update app language and logout.
+
+```tsx
+export const UserDetailsCard = ({ languages }) => {
+  const user = useAppSelector(selectUser);
+  const { data: userConfig } = useUserConfig();
+  const { data: userInfo } = useGetUserInfoQuery(
+    user?.UserId ? { userId: user.UserId } : skipToken,
+  );
+  const { modalVisible, showModal, hideModal } = useModalControl();
+
+  const [setUserConfig, { isLoading }] = useSetUserConfigMutation();
+  const language = getLanguage(languages, userConfig?.Language);
+
+  const onUpdatePress = async (languageCode: string) => {
+    if (!user) return;
+    await setUserConfig({
+      userId: user.UserId,
+      config: [
+        {
+          Key: 'Language',
+          Value: languageCode,
+        },
+      ],
+    });
+    hideModal();
+  };
+
+  const fields = [
+    { key: 'userName', value: userInfo?.UserName },
+    { key: 'email', value: userInfo?.Email },
+    {
+      key: 'language',
+      value: language.label,
+      action: 'change',
+      onPress: showModal,
+    },
+  ];
+
+  return (
+    <>
+      <ProfileDataCard headerText={'Profile'} fields={fields} />
+      <SelectLanguageModal
+        initialValues={language.tag}
+        modalVisible={modalVisible}
+        isLoading={isLoading}
+        languages={languages}
+        handleClose={hideModal}
+        handleSubmit={onUpdatePress}
+      />
+    </>
+  );
+};
+```
+
+<ArgTypes of={UserDetailsCard} />
+
+### ThemeCard
+
+This component is a wrapper around the [`Card`](?path=/story/components-card--simple-card) component. It provides a way to change the app theme.
+
+<Canvas of={ThemeCardStory.ThemeCardStory} layout="centered" />
+
+<ArgTypes of={ThemeCardStory.ThemeCardStory} />
+
+### KYCCard
+
+This component is a wrapper around the [`Card`](?path=/story/components-card--simple-card) component. It provides the user with relevant information about his KYC level.
+
+<Canvas of={KYCCardStory.KYCCardStory} layout="centered" />
+
+<ArgTypes of={KYCCardStory.KYCCardStory} />
+
+```tsx
+type KYCCardType = {
+  verificationLevel: number;
+  onButtonPress: () => void;
+};
+```
+
+## Hooks
+
+### `useUserConfig()`
+
+This hook provides a wrapper for RTK query for getting user config.
+
+### `useGetUserInfoQuery()`
+
+This hook provides a wrapper for RTK query for getting user info.
+
+### `useSetUserConfigMutation()`
+
+This hook provides a wrapper for RTK mutation for setting user config.
+
+### `useLogout()`
+
+This hook provides a way to logout from the app. It clears the user data from the redux store and redirects to the login screen.

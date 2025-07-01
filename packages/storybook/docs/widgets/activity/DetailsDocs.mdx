@@ -1,0 +1,24 @@
+import { Meta, ArgTypes, Canvas } from '@storybook/blocks';
+
+
+<Meta title="activity/Details/How to use" />
+
+# Activity details components
+
+This document describes how you can use different activity details components.
+
+There are following components for details: 
+* `OrderDetails` — component to render details for any kind of order (open or filled).
+* `WalletActivityDetails` — details for deposits and withdraws.
+* `AccountTransactionDetails` — component to render generic account transaction item (aka Recent Activity). it doesn't have activity specific information like order status, etc.
+* `MarginPositionDetails` — component to render details for the  margin positions.
+
+You can create separate screens for each type of details or you can have a single screen for all these details and render them depending on `type` parameter passed from a [List component](?path=/docs/activity-list-how-to-use--docs) (`order`, `wallet`, `accountPosition`).
+
+Each of the components listed above is responsible to tranform `ActivityItem` (see [List](?path=/docs/activity-list-how-to-use--docs) for more details) into the props of the [`ActivityDetailsCard`](?path=/docs/activity-details-activitydetailscard--docs) component.
+
+You can find more details on each of these components:
+
+* [OrderDetails](?path=/docs/activity-details-orderdetails--docs)
+* [WalletDetails](?path=/docs/activity-details-walletdetails--docs)
+* [AccountTransactionDetails](?path=/docs/activity-details-accounttransactiondetails--docs)

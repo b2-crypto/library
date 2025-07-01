@@ -1,0 +1,122 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks';
+import * as AffiliateCountCardStory from './AffiliateCountCard.stories';
+import * as AffiliateTagCardStory from './AffiliateTagCard.stories';
+import * as AffiliateTagModalStory from './AffiliateTagModal.stories';
+
+<Meta title="Profile/Affiliate/How To" />
+
+# Affiliate
+
+This document describes a possible implementation of the affiliate tab with "building blocks" provided by the library.
+
+**Table of Content**:
+
+- [Tab Layout](#tab-layout)
+- [Widgets and Components](#widgets-and-components)
+- [Hooks](#hooks)
+
+## Tab Layout
+
+The affiliate tab can be created using provided components, widgets and hooks. Here is an example of the tab layout:
+
+```tsx
+export const AffiliateTab = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const { tag, tagCount, isLoading, refetchTag, setTag, error } =
+    useAffiliate();
+  const webBaseUrl = container.resolveConfigValue('webBaseUrl');
+  const envUrl = encodeURI(`${webBaseUrl}signup?aff=${tag}`);
+
+  const onSubmit = useCallback(
+    async (newTag) => {
+      if (newTag === tag || !newTag.length) return;
+      await setTag(newTag);
+      Toast.show({
+        type: CustomToast.text,
+        text1: t('profile.affiliate.createTagModal.success'),
+      });
+      refetchTag();
+      setModalVisible(false);
+    },
+    [refetchTag, setTag, tag],
+  );
+
+  const onCopy = useCallback(() => {
+    Clipboard.setString(envUrl);
+    Toast.show({
+      type: CustomToast.text,
+      text1: t('profile.affiliate.copyTag'),
+    });
+  }, [envUrl]);
+
+  return (
+    <Box paddingHorizontal="m">
+      {!isLoading && (
+        <AffiliateTagModal
+          modalVisible={modalVisible}
+          handleClose={() => setModalVisible(false)}
+          tag={tag}
+          onSubmit={onSubmit}
+          error={error}
+        />
+      )}
+      <SectionHeading>{t('profile.affiliate.title')}</SectionHeading>
+      <Card marginVertical="m" padding="m">
+        <Text>{t('profile.affiliate.subTitle')}</Text>
+      </Card>
+      <AffiliateTagCard
+        onPress={() => setModalVisible(true)}
+        isLoading={isLoading}
+        tag={tag}
+        onCopy={onCopy}
+        affiliateUrl={envUrl}
+      />
+      <AffiliateCountCard isLoading={isLoading} affiliateCount={tagCount} />
+    </Box>
+  );
+};
+```
+
+## Widgets and Components
+
+### `AffiliateTagCard`
+
+This component is a wrapper around the [`Card`](?path=/story/components-card--simple-card) component. It provides the tag name, and the ability to bind an action to the button inside the card.
+
+<Canvas of={AffiliateTagCardStory.AffiliateTagCardStory} layout="centered" />
+
+<ArgTypes of={AffiliateTagCardStory.AffiliateTagCardStory} />
+
+### `AffiliateTagModal`
+
+This component is a wrapper around the `CardModal` component. It provides an input for the user to edit the current affiliate tag. This will trigger a call to the RTK mutation for affiliate tag.
+
+<ArgTypes of={AffiliateTagModalStory.AffiliateTagModalStory} />
+
+### `AffiliateCountCard`
+
+This component is a wrapper around the [`Card`](?path=/story/components-card--simple-card) component. It provides a counter of the number of affiliates associated with the logged user.
+
+<Canvas of={AffiliateCountCardStory.AffiliateCountCardStory} layout="centered" />
+
+<ArgTypes of={AffiliateCountCardStory.AffiliateCountCardStory} />
+
+## Hooks
+
+### `useAffiliate()`
+
+This hook provides a wrapper all affiliate related RTK queries. This hook includes the usage and implementation of 3 different hooks: `useGetUserAffiliateTagQuery`, `useGetUserAffiliateCountQuery`, and `useAddUserAffiliateTagMutation`
+
+### `useGetUserAffiliateTagQuery()`
+
+This hook provides a wrapper for RTK query for getting the user's affiliate tag.
+
+### `useGetUserAffiliateCountQuery()`
+
+This hook provides a wrapper for RTK query for getting the amount of registered affiliates related to the user.
+
+### `useSetUserConfigMutation()`
+
+This hook provides a wrapper for RTK mutation for setting the user's affiliate tag.
+
+

@@ -1,0 +1,22 @@
+import { useCallback } from 'react';
+import { useRequestTransferFundsMutation } from '../../../services/apexApi';
+import { ReceiveFormValues } from '../types';
+
+export function useRequestTransferFunds() {
+  const [requestTransferFunds, mutationState] =
+    useRequestTransferFundsMutation();
+
+  const requestFunds = useCallback(
+    async (values: ReceiveFormValues & { type: 'transfer' }) => {
+      return await requestTransferFunds({
+        Notes: values.note,
+        ReceiverUsername: values.emailAddress,
+        Amount: parseFloat(values.amount),
+        ProductId: values.productId,
+      }).unwrap();
+    },
+    [requestTransferFunds],
+  );
+
+  return [requestFunds, mutationState] as const;
+}

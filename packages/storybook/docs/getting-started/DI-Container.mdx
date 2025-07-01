@@ -1,0 +1,59 @@
+import { Meta, ArgTypes } from '@storybook/addon-docs';
+
+<Meta title="Getting Started/IoC Container" />
+
+# IoC Container
+
+The lib implements IoC container so you can configure different services per your needs.
+
+## Configure Container
+
+In your `App.tsx` you need to register services outside the `App` component. For example:
+
+```ts
+import { container, TYPES } from '@apex-rn/library/services';
+
+const storage = new MMKV();
+const encryptedStorage = new MMKV({
+  id: 'storage-encrypted',
+  encryptionKey: config.encryptedStorage.KEY,
+});
+container.registerService(TYPES.PUBLIC_STORAGE, storage);
+container.registerService(TYPES.SECURE_STORAGE, encryptedStorage);
+if (__DEV__) {
+  initializeMMKVFlipper({ default: storage, encrypted: encryptedStorage });
+}
+
+const logger = (event, ...rest) => console[event && event in console ? event : 'log'](...rest);
+container.registerService(TYPES.LOGGER, logger);
+
+container.setConfigValue('baseUrl', config.api.APEX_BASE_URL!);
+container.setConfigValue('verificationLevels', config.KYC.levels);
+container.setConfigValue('features', config.features);
+
+const App = () => {
+  // ...
+}
+
+```
+
+For now the following services are expected:
+
+- `PUBLIC_STORAGE` — MMKV storage to store public data
+- `SECURE_STORAGE` — MMKV storage with encryption configured to store the secure values
+- `LOGGER` — logger implementation (you can use whatever service you want, e.g. Grafana, New Relic, etc)
+
+## Manage application configuration
+
+The Container has methods to get and set the configuration values: `setConfigValue` and `getConfigValue`.
+
+## Resolve services from container
+
+You can resolve services from the container with `container.resolveServices<MMKV>(TEST.PUBLIC_STORAGE)`.
+
+
+There are also some helpers provideded:
+
+- `getDefaultStorage()` — returns default/public storage
+- `getSecureStorage()` — returns encrypted storage
+- `getLogger()` — returns logger instance

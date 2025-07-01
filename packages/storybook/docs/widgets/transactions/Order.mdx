@@ -1,0 +1,297 @@
+import { ArgTypes, Canvas, Description, Meta } from '@storybook/blocks';
+import { OrderConfirm } from "@apex-rn/library/features/Transactions";
+import * as InstrumentField from './InstrumentField.stories';
+import * as OrderFormBody from './OrderFormBody.stories';
+import * as OrderFormButton from './OrderFormButton.stories';
+import * as OrderFormHeader from './OrderFormHeader.stories';
+import * as OrderTypeField from './OrderTypeField.stories';
+
+<Meta title="transactions/Orders/How to Use" />
+
+# Buy/Sell
+
+This document describes a possible implementation of the Buy/Sell forms 
+with "building blocks" provided by the library.
+
+**Table of Content**:
+* [Form Layout](#form-layout)
+* [Types](#types)
+* [Widgets and Components](#widgets-and-components)
+* [Hooks](#hooks)
+
+
+## Form Layout
+
+The Order (buy/sell) form can be created using provided components, widgets and hooks. 
+Here is the example of the form layout. Below you can find more details on these pieces.
+
+```tsx
+export const OrderForm = ({ onClose, initialValues, balances }) => {
+  const user = useAppSelector(selectUser);
+  const { data: userInfo } = useGetUserInfoQuery(
+    user?.UserId ? { userId: user.UserId } : skipToken,
+  );
+  const form = useOrderForm(
+    { accountId: userInfo?.AccountId, ...initialValues },
+    { balances },
+  );
+  const { modalVisible, showModal, hideModal } = useModalControl();
+
+  const [sendOrder, { isLoading, error }] = useSendOrder();
+  const onSubmit = useCallback(
+    async (values) => {
+      try {
+        await sendOrder(values);
+        onClose();
+      } catch {
+        hideModal();
+      }
+    },
+    [sendOrder, onClose, hideModal],
+  );
+
+  return (
+    <FormProvider {...form}>
+      <ScrollView>
+        <OrderFormHeader onClose={onClose}>
+          <InstrumentFieldWidget />
+        </OrderFormHeader>
+        <OrderTypeField />
+        <OrderFormBodyWidget />
+        <OrderSummaryWidget />
+        {error?.message && (<SubmissionError error={error.message} /> )}
+        <OrderFormButton onPress={showModal} />
+      </ScrollView>
+
+      <ModalBlurBg
+        isVisible={modalVisible}
+        onBackdropPress={hideModal}>
+        {!!modalVisible && (
+          <OrderConfirm
+            values={form.getValues()}
+            onClose={hideModal}
+            submitting={isLoading}
+            onSubmit={form.handleSubmit(onSubmit)}
+          />
+        )}
+      </ModalBlurBg>
+    </FormProvider>
+  );
+};
+
+```
+
+## Types
+
+Type for the form values object used in most of hooks and components:
+
+```ts
+export type OrderFormValues = {
+  /** Operation (buy or sell) */
+  op: 'buy' | 'sell';
+  /** Selected instrument ID */
+  instrumentId: number;
+  /** User's account to use for the order (default account for the user is used by default) */
+  accountId: number;
+  /** Order Type */
+  type: 'Market' | 'Limit' | 'StopMarket';
+  /** Order quantity */
+  quantity: string;
+  /** Order value (for the Product2 of the selected instrument) */
+  value: string;
+  /** Limit price (only for limit orders) */
+  limit?: string;
+  /** Stop price (only for stop_market orders) */
+  stopPrice?: string;
+  /** Time in Force value ('gtc' by default) */
+  tif?: TifType;
+};
+```
+
+## Widgets and Components
+
+### OrderFormHeader
+
+This is a component for the header of the Order screen. 
+
+<Canvas of={OrderFormHeader.OrderFormHeaderStory} />
+
+#### Props
+<ArgTypes of={OrderFormHeader.OrderFormHeaderStory} />
+
+### InstrumentFieldWidget
+InstrumentFieldWidget is wrapper for InstrumentField which loads instruments for it. 
+It doesn't accept any props.
+
+#### InstrumentField
+<Canvas of={InstrumentField.InstrumentFieldStory} layout="centered" />
+<ArgTypes of={InstrumentField.InstrumentFieldStory} />
+
+
+### OrderTypeField
+
+The tabs component for the order `type` field.
+<Canvas of={OrderTypeField.OrderTypeFieldStory} layout="centered" />
+<ArgTypes of={OrderTypeField.OrderTypeFieldStory} />
+
+### OrderFormBodyWidget
+
+This widget  accepts `useOrderFormBody` parameters as props and passes hook's return value into the [`OrderFormBody`](?path=/story/transactions-orders-orderformbody--market-order-form-body).
+
+#### OrderFormBody
+<Description of={OrderFormBody} />
+
+This is a an example of the form form market orders but you can see more in stories.
+<Canvas of={OrderFormBody.MarketOrderFormBody} layout="centered" />
+<ArgTypes of={OrderFormBody.MarketOrderFormBody} />
+
+### OrderSummaryWidget
+
+This widget retrieves data for the order summary, shown by the `OrderSummary` next to the form body.
+It doesn't accept any props, but uses form's context to get the form values and transform them into summary items.
+See also `useOrderSummary()`.
+
+### OrderFormButton 
+
+This component renders the submit button for the form with different styles and 
+label based on the curent `op` — buy or sell order.
+
+#### Buy Button
+<Canvas of={OrderFormButton.BuyButtonStory} />
+
+#### Sell Button
+<Canvas of={OrderFormButton.SellButtonStory} />
+
+### OrderConfirm
+
+Content of the Confirm dialog. Uses `useOrderConfirmValues` to build the items for the confirm screen.
+
+#### Props
+<ArgTypes of={OrderConfirm} />
+
+
+## Hooks
+
+### `useOrderForm()`
+This is the wrapper around the React Hook Form's `useForm`. It should be used to instantiate a form
+and create a `FormProvider` for form's widgets (fields and group of fields).
+
+```ts
+function useOrderForm(
+  initialValues?: Partial<OrderFormValues>,
+  validationContext?: { balances: Record<number, Record<number, [number, number]>>},
+): UseFormReturn;
+```
+
+`validationContext` has a `balances` parameter where the first key is an `AccountID` and the second one — InstrumentID and 
+value is a tuple with balances for Product1 and Product2. It is used to validate 
+the maximum value of a `quantity` or `value` depending on `op` (`buy` or `sell` order).
+Here is the example on how to get this `balances` object:
+
+```tsx
+const { data: instruments } = useGetInstrumentsQuery();
+const accountsPositions = useAllAccountsPositions();
+
+const balances = useMemo(
+    () =>
+      mapValues(accountsPositions, positions => {
+        if (!instruments || !Array.isArray(instruments)) {
+          return {};
+        }
+        return Object.fromEntries(
+          instruments.map(instrument => {
+            const p1 = positions.find(p => p.ProductId === instrument.Product1);
+            const p2 = positions.find(p => p.ProductId === instrument.Product2);
+            return [
+              instrument.InstrumentId,
+              [p1 ? p1.Amount - p1.Hold : 0, p2 ? p2.Amount - p2.Hold : 0],
+            ];
+          }),
+        );
+      }),
+    [instruments, accountsPositions],
+  );
+```
+
+### `useSendOrder()`
+
+This hook provides a wrapper for RTK mutation for order submission. Returns a tuple:
+- first item is a mutation callback, which accept form values (`OrderFormValues`)
+- second item is RTK query state
+
+### `useOrderFormBody()`
+
+This hook loads and transforms the data needed for the OrderFormBody as props.
+`product1` and `product2` are dependant on the selected account 
+(there might be more than one in case of Margin Trading is enabled).
+
+```ts
+type UseOrderFormBodyReturn = {
+  /** Object corresponding to the first product of an instrument (Product1) */
+  product1: {
+    /** Symbol of the product */
+    symbol: string;
+    /** Amount the user owns */
+    amount: number;
+    /** Decimal places to round the amount for this currency */
+    decimalPlaces: number;
+  } | null;
+  /** Object corresponding to the second product of an instrument (Product2) */
+  product2: {
+    symbol: string;
+    amount: number;
+    decimalPlaces: number;
+  } | null;
+  /** Market Price for the selected instrument (if selected) */
+  marketPrice: number | undefined;
+  /** User's accounts */
+  accounts: GetAccountInfoResponse[];
+  /** Whether margin trading enabled for the selected instrument */
+  marginEnabledInstrument?: boolean;
+}
+
+function useOrderFormBody(): UseOrderFormBodyReturn;
+```
+
+### `useOrderSummary()`
+
+Accepts the form values object and returns items for the OrderSummary component.
+
+For `market` orders it uses level1 data (updates every 3 seconds) to get the 
+current market price depending on the operation (buy or sell).   
+To calculate the order total for `market` order it loads the existing orders and 
+sums the amount and price of the best fitting orders that covers the amount user 
+wants to buy/sell.
+
+```ts
+type UseOrderSummaryReturn = {
+  /** Market price for the selected instrument Updates every 3 seconds. */
+  market: { amount: number; symbol: string } | null;
+  /** Fees for the user's order */
+  fee: { amount: number; symbol: string } | null;
+  /** Total price user will pay for this order. Updates in realtime (for market order) */
+  totalPrice: { amount: number; symbol: string } | null;
+  /** Net price */
+  net: { amount: number; symbol: string } | null;
+}
+
+function userOrderSummary(values: Partial<OrderFormValues>): UseOrderSummaryReturn;
+```
+
+### `useMarginOrderSummary()`
+
+This is a separate hook that provides additional summary fields for orders for margin account.
+
+```ts
+type UseMarginOrderSummaryReturn = {
+  /** Borrowing power for the selected instrument */
+  borrowingPower: { amount: number; symbol: string } | '—';
+  /** Leverage for the selected instrument */
+  leverage: { amount: number; symbol: '' } | '—';
+}
+
+function useMarginOrderSummary(values: Partial<OrderFormValues>): UseMarginOrderSummaryReturn;
+```
+
+### `useOrderConfirmValues()`
+Accepts the form values and returns the list of values to be rendered with OrderConfirm component.

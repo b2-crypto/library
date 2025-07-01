@@ -1,0 +1,153 @@
+import { ArgTypes, Canvas, Description, Meta } from '@storybook/blocks';
+import { TransferFormBodyWidget } from "@apex-rn/library/features/Transactions";
+import * as TransferFormBody from './TransferFormBody.stories';
+import * as TransferFormHeader from './TransferFormHeader.stories';
+
+<Meta title="transactions/Transfer/How to Use" />
+
+# Transfer between user's accounts
+
+This document describes a possible implementation of the Transfer 
+(between the user's accounts) feature with "building blocks" provided by the library.
+
+**Table of Content**:
+* [Form Layout](#form-layout)
+* [Types](#types)
+* [Widgets and Components](#widgets-and-components)
+* [Hooks](#hooks)
+
+
+
+
+
+## Form Layout
+
+The Transfer form can be created using provided components, widgets and hooks. 
+Here is the example of the form layout. Below you can find more details on these pieces.
+
+```tsx
+export const TransferForm = ({ productId, onClose }) => {
+  const accountsPositions = useAllAccountsPositions();
+  const balances = useMemo(
+    () =>
+      mapValues(accountsPositions, positions =>
+        positions.reduce(
+          (acc, p) => {
+            acc[p.ProductId] = p.Amount - p.Hold;
+            return acc;
+          },
+          {},
+        ),
+      ),
+    [accountsPositions],
+  );
+
+  const form = useTransferForm({ productId }, { balances });
+
+  const [transfer] = useAccountsTranferFunds();
+
+  return (
+    <FormProvider {...form}>
+      <ScrollView>
+        <TransferFormHeader onClose={onClose} />
+        <TransferFormBodyWidget />
+        <Button
+          label="Send"
+          disabled={!form.formState.isValid}
+          onPress={form.handleSubmit(transfer)}
+        />
+      </ScrollView>
+    </FormProvider>
+  );
+};
+```
+
+## Types
+
+Common types for the Transfer:
+
+
+```ts
+type TransferFormValues = {
+  fromAccountId: number;
+  toAccountId: number;
+  productId: number;
+  amount: string;
+};
+
+
+type AmountFieldAsset = {
+  /* Product ID */
+  id: number;
+  /* Product symbol */
+  symbol: string;
+  /* Full name of the product */
+  fullName: string;
+  /* Decimal places to show for the product amount */
+  decimalPlaces: number;
+  /* Type of the product */
+  type: 'fiat' | 'crypto';
+  /* How much a current user owns */
+  amount: number;
+  /* Rate to convert the product into notional currency */
+  notionalSymbol?: string;
+  /* Symbol for the notional currency (platform specific setting) */
+  notionalRate?: number;
+};
+```
+
+## Widgets and Components
+
+### TransferFormHeader
+
+This is a component for the header of the Transfer screen. 
+
+<Canvas of={TransferFormHeader.TransferFormHeaderStory} layout="centered" />
+
+#### Props
+<ArgTypes of={TransferFormHeader.TransferFormHeaderStory} />
+
+### TransferFormBodyWidget
+This widget  accepts `useTransferFormBody` parameters as props and passes hook's return value into the [`TransferFormBody`](?path=/story/transactions-transfer-transferformbody--transfer-form-body-story).
+
+#### TransferFormBodyWidget Props
+<ArgTypes of={TransferFormBodyWidget} />
+
+#### TransferFormBody
+<Description of={TransferFormBody} />
+<Canvas of={TransferFormBody.TransferFormBodyStory} layout="centered" />
+<ArgTypes of={TransferFormBody.TransferFormBodyStory} />
+
+
+## Hooks
+
+### `useTransferForm()`
+This is the wrapper around the React Hook Form's `useForm`. It should be used to instantiate a form
+and create a `FormProvider` for form's widgets (fields and group of fields).
+
+```tsx
+function useTransferForm(
+  initialValues?: Partial<TransferFormValues>,
+  validationContext?: { 
+    /** two dimentional object: first key is accountId, and the second is productId, value is available balance */
+    balances: Record<number, Record<number, number>> 
+  },
+): UseFormReturn;
+```
+
+`validationContext.balances`  is used to validate the maximum value of the `amount` field value to not exceed the user's balance.
+
+### `useTransferSubmit()`
+
+This hook provides a wrapper for RTK mutation for order submission. Returns a tuple:
+- first is a mutation callback, which accept form values (`TransferFormValues`)
+- RTK query state
+
+### `useTransferBody()`
+
+```ts
+function useTransferBody(): {
+  accounts: GetAccountInfoResponse[];
+  products: AmountFieldAsset[];
+};
+```

@@ -1,0 +1,131 @@
+import { Meta, Canvas, Source, ArgTypes, Description } from '@storybook/blocks';
+import * as ActivityDetailsCard from './ActivityDetailsCard.stories';
+import * as ActivityDetailsCardInfo from './ActivityDetailsCardInfo.stories';
+import * as ActivityDetailsCardStatus from './ActivityDetailsCardStatus.stories';
+
+<Meta title="activity/Details/ActivityDetailsCard" />
+
+# ActivityDetailsCard
+
+This document describes a possible implementation of the Activity Details Card
+with "building blocks" provided by the library.
+
+**Table of Content**:
+
+- [Сard Layout](#card-layout)
+- [Components](#components)
+
+## Card Layout
+
+The Activity Details Card is a simple wrapper around the [Card](?path=/story/components-card--simple-card) component.
+
+```tsx
+const ActivityDetailsCard = ({
+  icon,
+  title,
+  extraIcon,
+  amount,
+  currency,
+  product,
+  activityType,
+  activityTypeColor,
+  orderType,
+  userInfo,
+  valuesInfo,
+  activityStatus,
+  activityTextColor,
+  activityId,
+  time,
+  footer,
+  error,
+}) => {
+  return (
+    <Card
+      heading={
+        <Box flexDirection="row" alignItems="center" gap="sm">
+          {icon}
+          <Text variant="subHeadlineBold">{title}</Text>
+        </Box>
+      }
+      headingExtra={extraIcon}
+      footer={footer}>
+      <ActivityDetailsCardInfo
+        amount={amount}
+        currency={currency}
+        product={product}
+        activityType={activityType}
+        activityTypeColor={activityTypeColor}
+        orderType={orderType}
+        userInfo={userInfo}
+        valuesInfo={valuesInfo}
+      />
+      <ActivityDetailsCardStatus
+        activityStatus={activityStatus}
+        activityTextColor={activityTextColor}
+        activityId={activityId}
+        time={time}
+      />
+    </Card>
+  );
+};
+```
+
+The ActivityDetailsCard component accepts several props that define the appearance and content of the card. Inside it, there are ActivityDetailsCardInfo for displaying activity details and ActivityDetailsCardStatus for displaying the activity status.
+
+#### Types
+
+```tsx
+type ActivityItem = {
+  /* Activity Id */
+  id: number;
+  /* Activity amount */
+  amount: number;
+  /* Activity type */
+  type: string;
+  /* Activity status */
+  status: string;
+  /* Activity timestamp */
+  timestamp: number;
+  /* Instrument Id */
+  instrumentId?: number;
+  /* Product Id */
+  productId?: number;
+  /* Decimal places to show for the activity amount */
+  decimalPlaces?: number;
+  /* Currency of the activity */
+  currency?: string;
+  /* Activity currency */
+  fullName?: string;
+  /* Symbol of the activity */
+  symbol?: string;
+};
+```
+
+#### Props
+
+<ArgTypes of={ActivityDetailsCard} />
+
+## Components
+
+### Activity Details Card Info
+
+The [ActivityDetailsCardInfo](?path=/story/activity-activitydetailscard-components--activity-details-info) component displays information about the activity details.
+
+<Canvas of={ActivityDetailsCardInfo.ActivityDetailsInfo} layout="centered" />
+
+#### Props
+
+<ArgTypes of={ActivityDetailsCardInfo.ActivityDetailsInfo} />
+
+### Activity Details Card Status
+
+The [ActivityDetailsCardStatus](?path=/story/activity-activitydetailscard-components--activity-details-status) component displays information about the activity status.
+
+<Canvas
+  of={ActivityDetailsCardStatus.ActivityDetailsStatus}
+  layout="centered"
+/>
+
+#### Props
+
+<ArgTypes of={ActivityDetailsCardStatus.ActivityDetailsStatus} />

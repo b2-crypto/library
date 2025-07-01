@@ -1,0 +1,725 @@
+{
+  "cancel": "Cancelar",
+  "confirm": "Confirmar",
+  "decline": "Rechazar",
+  "date": "Fecha",
+  "select": "Seleccionar",
+  "search": "Buscar",
+  "priceChart": "Gráfico de precios",
+  "depthChart": "Gráfico de profundidad",
+  "candle": "Vela",
+  "area": "Área",
+  "lastPrice": "Ultimo precio",
+  "volume": "Volumen",
+  "bid": "Licitación",
+  "selectAccount": "Seleccionar cuenta",
+  "selectAsset": "Seleccionar activo",
+  "ask": "Preguntar",
+  "edit": "Editar",
+  "change": "Cambiar",
+  "24HrHigh": "24 horas de altura",
+  "24HrLow": "24 horas bajo",
+  "orderBook": "Libro de pedidos",
+  "recentTrades": "Operaciones recientes",
+  "recentActivity": "Actividad reciente",
+  "bought": "Compró",
+  "buy": "Comprar",
+  "sell": "Vender",
+  "sold": "Vendido",
+  "send": "Enviar",
+  "receive": "Recibir",
+  "convert": "Convertir",
+  "time": "Tiempo",
+  "finalQuantity": "Cantidad final de %{symbol}",
+  "finalValue": "Valor final de %{symbol}",
+  "lackOfFunds": "No tienes suficientes fondos",
+  "qty": "Cantidad",
+  "pair": "Par",
+  "price": "Precio",
+  "chg": "Cambio",
+  "amount": "Cantidad",
+  "limitPrice": "Precio límite",
+  "orderTotal": "Total del pedido",
+  "orderType": "Tipo de orden",
+  "transactionCost": "Costo de la transacción",
+  "fees": "Comisiones",
+  "fee": "Tarifa",
+  "max": "MÁX.",
+  "tif": "TIF",
+  "noItems": "No hay nada para mostrar",
+  "deposit": "Deposito",
+  "withdraw": "Retiro",
+  "screens": {
+    "home": "Panel",
+    "dashboard": "Panel",
+    "markets": "Mercados",
+    "wallet": "Billetera",
+    "activity": "Actividad",
+    "profile": "Perfil",
+    "walletDetail": "Detalles de la billetera",
+    "pairDetails": "Detalles del par",
+    "activityDetails": "Actividad",
+    "confirmPassword": "Confirmar contraseña",
+    "trade": "Cambiar"
+  },
+  "formError": {
+    "empty": "No puede estar vacío",
+    "common": "Ups, algo anda mal...",
+    "passwordValidation": "Debe contener una mayúscula, una minúscula, un número y un carácter de caso especial",
+    "confirmPasswordValidation": "Las contraseñas no coinciden",
+    "checkboxValidation": "El campo debe estar marcado",
+    "radioValidation": "Se requiere una opción de radio",
+    "emailValidation": "Formato de correo inválido",
+    "numberTypeError": "Valor no válido",
+    "numericOnly": "Solo se permiten dígitos",
+    "positiveNumberError": "El valor debe ser mayor que cero",
+    "lackOfFunds": "No tienes suficientes fondos",
+    "notPersonalEmail": "No puede usar su propio email como dirección del receptor",
+    "invalidCryptoAddress": "%{symbol} dirección no válida",
+    "selectDifferentAccounts": "Por favor, seleccione cuentas diferentes de origen y destino",
+    "exceedsMaxAmount": "El monto excede el máximo permitido. Por favor, verifique y vuelva a intentarlo."
+  },
+  "common": {
+    "and": "y",
+    "user": "Usuario",
+    "region": "Región",
+    "name": "Nombre",
+    "username": "Nombre de usuario",
+    "email": "Email",
+    "country": "País",
+    "currency": "Divisa",
+    "language": "Idioma",
+    "profile": "Perfil",
+    "security": "Seguridad",
+    "sendEmail": "Enviar email",
+    "update": "Actualizar",
+    "displayCurrency": "Mostrar moneda",
+    "close": "Cerca",
+    "requirements": "Requisitos",
+    "success": "Éxito",
+    "tryAgain": "Intentar otra vez",
+    "ok": "DE ACUERDO",
+    "yes": "Sí",
+    "no": "No",
+    "2faCode": "Token",
+    "error": "Error",
+    "unknownError": "Ocurrió un error desconocido",
+    "invalid2FaCode": "Token de autenticación de dos factores no válido",
+    "activity": "Actividad",
+    "appVersion": "App Versión: %{version}",
+    "versionCopied": "Copia de versión",
+    "withdraw": "Retirar",
+    "deposit": "Depositar",
+    "transfer": "Transferir",
+    "search": "Buscar"
+  },
+  "transaction": {
+    "marketPrice": "Precio de mercado",
+    "net": "Neto",
+    "empty": "Seleccione un activo para comenzar su transacción.",
+    "orderSuccess": "Su pedido ha sido aceptado",
+    "fields": {
+      "stopPrice": "Precio de parada",
+      "template": "Plantilla",
+      "externalAddress": "Dirección de la billetera",
+      "comment": "Comentario",
+      "externalAddressPlaceholder": "Seleccionar dirección externa"
+    },
+    "leverage": {
+      "description": "Después del ajuste, su %{name} cambiará en consecuencia.",
+      "heading": "Apalancamiento máximo de margen cruzado",
+      "noLeverage": "Sin Apalancamiento"
+    },
+    "orderType": {
+      "market": "Mercado",
+      "limit": "Límite",
+      "stopMarket": "Stop Mercado",
+      "stopLimit": "Stop Límite"
+    },
+    "summary": {
+      "quantity": "Cantidad",
+      "value": "Valor",
+      "limitPrice": "Precio límite",
+      "market": "Precio de mercado",
+      "fee": "Comisión",
+      "total": "Precio total",
+      "net": "Neto",
+      "balance": "Tu saldo de %{symbol}",
+      "amountSend": "Importe a enviar",
+      "remainingBalance": "Balance restante",
+      "borrowingAmount": "BPoder de endeudamiento",
+      "hourlyInterest": "Interés horario",
+      "maxBuyAmount": "Monto Máximo de Compra",
+      "maxSellAmount": "Monto Máximo de Venta",
+      "leverage": "Utilizar",
+      "stopPrice": "Precio de parada",
+      "netReceiving": "Neto recibido",
+      "orderType": {
+        "market": "Orden de mercado",
+        "limit": "Orden de límite",
+        "stopMarket": "Orden de parada de mercado",
+        "stopLimit": "Orden de parada de límite"
+      }
+    },
+    "tif": {
+      "gtc": "GTC: bueno hasta que se cancele",
+      "ioc": "COI: Inmediato o Cancelar",
+      "fok": "FOK: llenar o matar"
+    },
+    "sendTab": {
+      "withdraw": "Monedero externo",
+      "transfer": "Dirección de correo electrónico"
+    },
+    "receiveTab": {
+      "deposit": "Mi billetera",
+      "transfer": "Amigo"
+    },
+    "confirmWith2FaTitle": "Confirmación de dos factores",
+    "depositTab": {
+      "external": "Cuenta Externa",
+      "send": "Solicitar"
+    },
+    "withdrawTab": {
+      "external": "Cuenta Externa",
+      "send": "Enviar"
+    },
+    "deposit": {
+      "amount": "Amount",
+      "account": "Account",
+      "routingNumber": "Routing Number",
+      "confirmAmountLabel": "%{symbol} a Depositar",
+      "note": "Agregar una nota (Opcional)",
+      "noteLabel": "Nota",
+      "emailAddress": "Dirección de correo electrónico",
+      "ExternalConfirmTitle": "Deposito externo",
+      "RequestConfirmTitle": "Solicitando Deposito",
+      "externalSuccess": "Deposito exitoso",
+      "requestSuccess": "Deposito exitoso",
+      "requestButton": "Solicitar Deposito",
+      "SendConfirmTitle": "Confirmar Deposito"
+    },
+    "withdraw": {
+      "amount": "Amount",
+      "account": "Account",
+      "routingNumber": "Routing Number",
+      "confirmAmountLabel": "%{symbol} a Retirar",
+      "note": "Agregar una nota (Opcional)",
+      "noteLabel": "Nota",
+      "emailAddress": "Dirección de correo electrónico",
+      "ExternalConfirmTitle": "Retiro externo",
+      "RequestConfirmTitle": "Solicitando Retiro",
+      "externalSuccess": "Retiro exitoso",
+      "requestSuccess": "Retiro exitoso",
+      "requestButton": "Solicitar Retiro",
+      "SendConfirmTitle": "Confirmar Retiro"
+    }
+  },
+  "auth": {
+    "formField": {
+      "userName": "Nombre de usuario",
+      "password": "Contraseña",
+      "passwordConfirm": "Confirmar Contraseña",
+      "token": "Simbólico",
+      "email": "Correo electrónico"
+    },
+    "troubles": {
+      "forgotPwdSuccess": "Verifique su correo electrónico para restablecer el enlace de contraseña",
+      "resendVerificationSuccess": "Verifique su correo electrónico para obtener un correo electrónico de verificación de cuenta"
+    },
+    "loginScreen": {
+      "login": "Acceso",
+      "signUp": "Registrarse",
+      "register": "Registro",
+      "sendEmail": "Enviar correo electrónico",
+      "update": "Actualizar",
+      "welcome": "¡Bienvenido a AlphaPoint!",
+      "troublelog": "¿Problemas para iniciar sesión?",
+      "backToLog": "Volver a Iniciar sesión y registrarse",
+      "authenticatorTitle": "Autenticación de dos factores",
+      "authenticatorTitle2": "Ingrese el token de la aplicación Authenticator.",
+      "updatePasswordTitle": "Actualiza contraseña",
+      "updatePasswordTitle2": "Elija una contraseña que tenga un carácter especial, un número y una letra mayúscula.",
+      "troublelogTitle2-email": "Seleccione su tipo de problema y proporciónenos su dirección de correo electrónico. Seguiremos con una solución en breve.",
+      "troublelogTitle2-userName": "Seleccione su tipo de problema y proporciónenos su nombre de usuario. Seguiremos con una solución en breve.",
+      "troublelogForgotPassword": "Soy un usuario existente y olvidé mi contraseña.",
+      "troublelogVerificationEmail": "Soy un nuevo usuario y no he recibido mi correo electrónico de verificación.",
+      "signUpAcceptText": "Al hacer clic en Registrarse, acepta",
+      "termsAndConditions": "Términos y condiciones",
+      "privacyPolicy": "política de privacidad"
+    },
+    "signUpModal": {
+      "title": "Bienvenido a AlphaPoint",
+      "text": "Gracias por registrarse para ser miembro de AlphaPoint Exchange. Esperamos su participación en el mundo de las finanzas descentralizadas. ¡Revisa tu correo electrónico para verificar tu cuenta!"
+    },
+    "logout": "Salir",
+    "biometrics": {
+      "title": "APEX",
+      "confirm": "Confirmar biometría",
+      "setupModal": {
+        "title": "Ingresar con biométricos",
+        "text": "Ingresar rápido y seguro usando su huella digital o autenticación facial.\n\nTenga en cuenta que cualquier persona con biometría almacenada en su dispositivo podrá acceder a sus cuentas.",
+        "button": "Configuración de biometría",
+        "skip": "Omitir"
+      },
+      "login": {
+        "title": "¡Bienvenido de nuevo!",
+        "titleName": "¡Bienvenido, %{userName}!",
+        "button": "Ingresa con biometría",
+        "userNameAndPassword": "Ingrese con nombre de usuario y contraseña",
+        "footer": "Not you?"
+      },
+      "setup": {
+        "title": "Ingresar con biométricos",
+        "text": "Quieres configurar el acceso biométrico en tu dispositivo?",
+        "button": "Configurar"
+      }
+    }
+  },
+  "tabs": {
+    "header": "AlphaPoint",
+    "dashboard": "Panel",
+    "markets": "Mercados",
+    "wallet": "Billetera",
+    "profile": "Perfil"
+  },
+  "dashboard": {
+    "prices": "Precios",
+    "walletBalances": "Saldos de billetera",
+    "recentActivity": "Actividad reciente",
+    "bought": "Compró",
+    "sold": "Vendido",
+    "balanceLabel": "Tu balance:",
+    "welcomeUsername": "¡Hola, %{username}!",
+    "newsFeed": "Noticias"
+  },
+  "wallet": {
+    "assets": "Activos",
+    "yourCryptoBalance": "Su saldo de %{ProductSymbol}",
+    "balance": "Balance",
+    "modifyWalletList": "Modificar lista de billeteras",
+    "availableBalance": "Saldo disponible",
+    "hold": "Sostener",
+    "pendingDeposits": "Depósitos Pendientes",
+    "totalBalance": "Balance total",
+    "details": "Detalles",
+    "tabs": {
+      "spot": "Spot",
+      "margin": "Margin"
+    },
+    "marginChart": {
+      "viewMore": "Ver más",
+      "hideLegend": "Ocultar Leyenda",
+      "collateralValue": "Valor de los activos colaterales",
+      "positionsValue": "Valor de Posiciones de Margen",
+      "pnlLabel": "Posiciones de margen PnL",
+      "marginCallMarker": "Marcador de llamada de margen",
+      "liquidationMarker": "Marcador de liquidación",
+      "accountDetailsModal": {
+        "heading": "Detalles de la cuenta",
+        "content": "Detalles de la cuenta"
+      }
+    },
+    "marginRisk": {
+      "liquidation": "En Liquidación",
+      "marginCall": "Llamada de Margen",
+      "verylow": "Muy Bajo",
+      "low": "Bajo",
+      "medium": "Medio",
+      "high": "Alto",
+      "veryHigh": "Muy Alto"
+    }
+  },
+  "profile": {
+    "tabs": {
+      "profile": "Perfil",
+      "verification": "Verificación",
+      "security": "Seguridad",
+      "margin": "Margin",
+      "affiliate": "Afiliados"
+    },
+    "hiUser": "¡Hola, %{username}!",
+    "userDetails": "Detalles de usuario",
+    "regionDetails": "Detalles de la región",
+    "colorSchemeHeading": "Tema",
+    "colorScheme": {
+      "system": "Auto",
+      "dark": "Oscuro",
+      "light": "Luz"
+    },
+    "reset": {
+      "password": "Restablecimiento de contraseña",
+      "passwordText": "Para cambiar tu contraseña, te enviaremos un email que te permitirá acceder a nuestra función Restablecer contraseña. Haga clic en el botón de abajo para recibir el email.",
+      "sendEmail": "Enviar email",
+      "emailSentHeader": "Email de restablecimiento de contraseña enviado",
+      "emailSentText": "Revise su email con instrucciones sobre cómo cambiar su contraseña."
+    },
+    "2fa": {
+      "enabled": {
+        "title": "Administrar la autenticación de dos factores",
+        "text": "La autorización de dos factores (2FA) agrega otra capa de protección a su cuenta al solicitar un código de acceso adicional durante el proceso de inicio de sesión. Deberá descargar Google Authenticator en su teléfono inteligente como parte del proceso para habilitar 2FA.",
+        "btn": "Administrar"
+      },
+      "disabled": {
+        "title": "Habilitar autenticación de dos factores",
+        "text": "La autorización de dos factores (2FA) agrega otra capa de protección a su cuenta al solicitar un código de acceso adicional durante el proceso de inicio de sesión. Deberá descargar Google Authenticator en su teléfono inteligente como parte del proceso para habilitar 2FA. Luego deberá ir al intercambio web y luego activar la configuración 2FA allí antes de habilitarla en su dispositivo móvil.",
+        "btn": "Habilitar 2FA"
+      },
+      "manage": {
+        "title": "Autenticación de dos factores",
+        "text": "¿Desea activar la autenticación de dos factores para este dispositivo?"
+      },
+      "disable": {
+        "title": "Deshabilitar la autenticación de dos factores",
+        "text": "¿Desea desactivar la autenticación de dos factores para este dispositivo?"
+      }
+    },
+    "verification": {
+      "yourLevel": "Su nivel de verificación:",
+      "level": "Nivel %{level}",
+      "kycButtonLabel": {
+        "level1": "Aumentar a Nivel 1",
+        "level2": "Aumentar a Nivel 2"
+      },
+      "kycCard": {
+        "level0": {
+          "content": "Debes verificar tu teléfono para aumentar tus límites y tener acceso a todas las funcionalidades",
+          "button": "Aumentar al Nivel 1"
+        },
+        "level1": {
+          "content": "Para aumentar tus límites debes proporcionar y verificar un documento de identidad",
+          "button": "Aumentar al Nivel 2"
+        },
+        "level2": {
+          "content": "Tu cuenta está completamente verificada",
+          "button": "Nivel de Verificación Máximo"
+        }
+      },
+      "cardHeader": "KYC - Nivel %{level}",
+      "currentBenefits": "Beneficios Actuales",
+      "addBenefits": "Beneficios adicionales",
+      "item": "• %{item}",
+      "underReview": "La solicitud está bajo revisión",
+      "fail": "El último proceso de verificación falló",
+      "notVerified": "No verificado",
+      "levelsDescription": {
+        "level0": {
+          "requirements": "• Registrarse como usuario de intercambio y verificar su correo electrónico",
+          "benefits": "• Acceso al intercambio\n• Capacidad limitada para depósitos / retiros / operaciones"
+        },
+        "level1": {
+          "requirements": "• Verificación telefónica y selfie",
+          "benefits": "• Depósitos y retiros de $2000\n• Límites de compra y venta de $10,000"
+        },
+        "level2": {
+          "requirements": "• Verificación de identificación y selfie",
+          "benefits": "• Depósitos y retiros ilimitados\n• Límites de compra y venta de $50,000"
+        }
+      },
+      "widgetTitle": "Verifica tu identidad",
+      "widgetText": "Para comerciar en el intercambio o transferir criptoactivos en AlphaPoint, debe verificar su identidad"
+    },
+    "language": {
+      "selectLanguage": "Seleccione el idioma que prefiera"
+    },
+    "confirmPassword": {
+      "cardTitle": "Confirmar contraseña",
+      "cardMessage": "Por favor ingresa tu contraseña para verificar tu cuenta",
+      "passwordLabel": "Contraseña actual",
+      "submitButton": "Enviar"
+    },
+    "affiliate": {
+      "title": "Programa de Afiliados AlphaPoint",
+      "subTitle": "El programa de afiliados AlphaPoint te permite ganar un bono por cada referido registrado exitosamente a tu cuenta.",
+      "tagCard": {
+        "title": "Etiqueta de Afiliado",
+        "create": "Crear etiqueta de Afiliado",
+        "edit": "Editar etiqueta de Afiliado",
+        "content": "Cree un enlace de afiliado a continuación, cópielo y envíelo por correo electrónico a un amigo.\n\nTus amigos pueden hacer clic en el enlace de afiliado y registrarse para obtener una cuenta, momento en el que verás aumentar el número de afiliados en esta página."
+      },
+      "activeAffiliates": {
+        "title": "Afiliados Activos",
+        "content": "# de Afiliados"
+      },
+      "createTagModal": {
+        "placeholder": "Inserte nueva Etiqueta",
+        "editTitle": "Edita Etiqueta de Afiliado",
+        "createTitle": "Crea Etiqueta de Afiliado",
+        "edit": "Editar etiqueta",
+        "create": "Crear etiqueta",
+        "success": "Tu etiqueta ha sido editada correctamente.",
+        "error": "Hubo un error editando la etiqueta."
+      },
+      "copyTag": "El enlace de afiliado ha sido copiado."
+    },
+    "margin": {
+      "heading": "Margin Trading",
+      "introText": "El trading de margen es el proceso mediante el cual un usuario toma prestado dinero de AlphaPoint Exchange para comprar o vender más activos de lo que ese usuario podría permitirse de otra manera.",
+      "requestAccountSuccess": "Tu cuenta de margen ha sido activada exitosamente.",
+      "notAllowedHeading": "No eres elegible para habilitar el margen.",
+      "notAllowedText": "No eres elegible para habilitar el trading con margen. Por favor, contacta al equipo de soporte si tienes preguntas sobre los requisitos previos para habilitar el margen.",
+      "notEnoughFundsHeading": "No tienes suficientes fondos en tu cuenta spot para habilitar el margen.",
+      "notEnoughFundsText": "El valor mínimo en cualquier activo en tu cuenta spot convertido a Activo Base debe ser {{value}} {{symbol}}.",
+      "notEligibleAndNoFundsHeading": "No eres elegible para habilitar margen y no tienes suficientes fondos en tu cuenta spot para habilitar margen.",
+      "notEligibleAndNoFundsText": "No eres elegible para habilitar el comercio con margen. Por favor, contacta al equipo de soporte si tienes preguntas sobre los requisitos previos para habilitar el margen.\n\nAdemás, el valor mínimo en cualquier activo en tu cuenta spot convertido a Activo Base debe ser {{value}} {{symbol}}.",
+      "accountFrozenHeading": "No cumple los requisitos para habilitar el trading con margen.",
+      "accountFrozenText": "Si tiene alguna pregunta sobre los requisitos para habilitar el trading con margen, póngase en contacto con el equipo de soporte.",
+      "statusLabel": "El comercio de margen es",
+      "statusEnabled": "habilitado",
+      "statusDisabled": "deshabilitado",
+      "applyButton": "Habilitar",
+      "confirmButton": "Aceptar Términos",
+      "declineButton": "Declinar",
+      "termsModalTitle": "Términos y Condiciones de Margen",
+      "declineModalText": "El comercio de margen no ha sido habilitado.\n\nPara comenzar a utilizar la función de margen, debe aceptar los Términos y Condiciones de Margen.",
+      "errorModalText": "Hubo un error al habilitar el comercio de margen",
+      "successModalText": "La negociación con margen ha sido habilitada.\n\nAhora puedes operar con margen en los pares que lo tienen habilitado.",
+      "termsCheckboxLabel": "He leído todos los Términos y Condiciones",
+      "termsText": "Terms & Conditions for Margin Trading\n1. Introduction\nThese Terms & Conditions (\"Terms\") govern your use of the margin trading services (\"Services\") offered by APEX (\"the Platform\"). By using the Services, you agree to be bound by these Terms. If you do not agree to these Terms, you must not access or use the Services.\n2. Eligibility\nTo use the Services, you must:\nBe at least 18 years old (or the legal age in your jurisdiction).\nHave completed the required verification process (KYC).\nHave sufficient funds in your account to meet margin requirements.\nAcknowledge and understand the risks associated with margin trading.\n3. Risk Disclosure\nMargin trading involves a high level of risk, including the potential loss of all invested capital. By using the Platform, you acknowledge the following:\nYou understand that leveraging increases both potential profits and losses.\nMarket conditions may fluctuate rapidly, leading to substantial losses.\nYou are responsible for monitoring your positions and ensuring compliance with margin requirements.\nAPEX is not responsible for any losses incurred as a result of market movements or margin calls.\n4. Account and Margin Requirements\n4.1 Account Balance You must maintain sufficient funds in your account to cover the margin requirements set by the Platform. Margin requirements are subject to change based on market volatility, regulatory requirements, or Platform discretion.\n4.2 Margin Calls If the value of your account falls below the required margin level, the Platform may issue a margin call, requiring you to deposit additional funds or close your positions. If you do not meet the margin call, the Platform reserves the right to liquidate your positions without further notice.\n4.3 Leverage The maximum leverage available on the Platform is subject to change and may vary based on the asset class being traded. You are responsible for understanding the leverage applied to your trades.\n5. Fees and Charges\nThe Platform may charge fees for using its Services, including, but not limited to:\nTrading fees for each transaction.\nInterest charges on borrowed funds used in margin trading. All fees are subject to change and will be updated on the Platform's Fee Schedule.\n6. Order Execution\nAll orders placed through the Platform are subject to market conditions, availability of liquidity, and the Platform's execution capabilities.\nThe Platform does not guarantee that any order will be executed at the desired price. Slippage, partial fills, and delays may occur during periods of high market volatility.\n7. Account Monitoring and Responsibility\nYou are responsible for: Monitoring your account balance and open positions. Ensuring that you meet all margin requirements.\nUnderstanding the mechanics of margin trading and the risks involved.\n8. Platform Rights and Obligations\n8.1 Modifications to Services\nThe Platform reserves the right to modify, suspend, or discontinue any part of the Services at any time without prior notice.\n8.2 Account Suspension and Termination The Platform may, at its discretion, suspend or terminate your account in the event of: Violation of these Terms. Failure to meet margin requirements. Suspected fraudulent or illegal activity. Regulatory requirements.\n8.3 Force Majeure The Platform shall not be held liable for delays or failure in performance resulting from acts beyond its reasonable control, including, but not limited to, market disruptions, communication failures, or regulatory changes.\n9. Dispute Resolution\nAny disputes arising from the use of the Platform shall be resolved through arbitration in accordance with the rules of [Arbitration Body]. The decision of the arbitrator shall be final and binding.\n10. Governing Law\nThese Terms shall be governed by and construed in accordance with the laws of [Jurisdiction], without regard to its conflict of law principles.\n11. Amendments to the Terms\nThe Platform reserves the right to amend these Terms at any time. Any changes will be communicated to you through Email. Your continued use of the Platform after the changes take effect constitutes your acceptance of the new Terms.\n12. Privacy Policy\nYour personal data will be processed in accordance with the Platform's [Privacy Policy]. You agree to the collection, use, and storage of your personal information as outlined in the policy.\n13. Limitation of Liability\nThe Platform shall not be liable for any direct, indirect, incidental, or consequential damages resulting from the use or inability to use the Services, including, but not limited to, loss of profits, loss of data, or system failures.\n14. Indemnification\nYou agree to indemnify and hold APEX, its affiliates, officers, directors, employees, and agents harmless from any claims, liabilities, damages, or expenses (including legal fees) arising out of your use of the Services, violation of these Terms, or infringement of any third-party rights.\n15. Contact Information\nFor any inquiries or issues related to these Terms or the Platform's Services, you may contact us at:\nEmail: support@email.com\nPhone: +01 123456789\nAddress: APEX address\nAcknowledgment\nBy using the Platform, you acknowledge that you have read, understood, and agree to be bound by these Terms & Conditions.",
+      "viewTermsButton": "Ver Términos y Condiciones"
+    }
+  },
+  "2faActivation": {
+    "qrCard": {
+      "title": "Autenticación de dos factores",
+      "text": "Copie y pegue este código QR en la aplicación de autenticación de su elección.",
+      "btn": "Copiar código manual",
+      "copyMsg": "Código manual copiado."
+    },
+    "codeCard": {
+      "title": "Activar autenticación",
+      "text": "Después de agregar APEX a su aplicación de autenticación, copie el código del generador de autenticación aquí"
+    }
+  },
+  "connection": {
+    "title": "Parece que no hay \n conexión a Internet.",
+    "text": "Puedes volver a intentarlo ahora o más tarde."
+  },
+  "transactions": {
+    "asset": "Activo",
+    "externalWallet": "Billetera externa",
+    "emailAddress": "Dirección de correo electrónico",
+    "walletAddress": "Dirección de la billetera",
+    "amount": "Cantidad",
+    "yourBalance": "Su saldo actual",
+    "amountSend": "Monto a enviar",
+    "remainingBalance": "Balance restante",
+    "sendAssets": "Enviar activos",
+    "sent": "Enviado",
+    "value": "Valor",
+    "note": "Nota",
+    "send": "Enviar",
+    "receive": "Recibir",
+    "receiveTransferConfirmTitle": "Solicitud de un amigo",
+    "receiveConfirmAmountLabel": "%{symbol} para recibir",
+    "sendTransferConfirmTitle": "Enviar al correo electrónico",
+    "sendWithdrawConfirmTitle": "Enviar a billetera",
+    "sendConfirmAmountLabel": "%{symbol} para recibir",
+    "withdrawSuccess": "Solicitud de retiro enviada",
+    "transferSuccess": "Transferiste correctamente",
+    "convert": "Convertir",
+    "friend": "Amigo",
+    "requestAssets": "Solicitar activos",
+    "requesteesAddress": "Dirección del Solicitante",
+    "scanToReceive": "Escanea este código QR para recibir fondos:",
+    "orCopy": "O copie esta dirección:",
+    "walletAddressCopied": "La dirección de la billetera se ha copiado en el portapapeles",
+    "selectAsset": {
+      "receive": "Seleccione un activo para recibir",
+      "send": "Seleccione un activo para enviar"
+    },
+    "convertAssets": "Convertir criptoactivos",
+    "balance": "Balance",
+    "toConvert": "%{symbol} para convertir",
+    "endingAmount": "Importe final de %{symbol}",
+    "from": "De",
+    "to": "A",
+    "convert_button": "Convertir",
+    "estimated_suffix": "(Est.)",
+    "accountTypeLabel": "Tipo de cuenta",
+    "transferAssetsTitle": "Transferir Activos",
+    "accountFieldPlaceholder": "Seleccionar cuenta",
+    "fromAccount": "De",
+    "toAccount": "A",
+    "transferButton": "Send",
+    "transferError": "Error al transferir"
+  },
+  "activity": {
+    "submitButton": "Enviar",
+    "openOrders": "Ordenes abiertas",
+    "filledOrders": "Pedidos completados",
+    "cancelledOrders": "Ordenes canceladas",
+    "depositStatus": "Estado del depósito",
+    "withdrawal": "Retiro",
+    "openPositions": "Posiciones abiertas",
+    "closedPositions": "Posiciones cerradas",
+    "emptyList": "Ninguna actividad",
+    "avgPrice": "Precio medio",
+    "limitPrice": "Precio límite",
+    "value": "Valor",
+    "cancelOrder": "Cancelar orden",
+    "cancelOrderModal": {
+      "heading": "Cancelar orden",
+      "message": "¿Estás seguro de que deseas cancelar esta orden?"
+    },
+    "cancelRequest": "Cancelar petición",
+    "refType": "Tipo de referencia",
+    "transactionType": "Tipo de transacción",
+    "orderStatus": {
+      "working": "En proceso",
+      "rejected": "Rechazada",
+      "canceled": "Cancelada",
+      "expired": "Expirada",
+      "unknown": "Error",
+      "fullyExecuted": "Completado"
+    },
+    "itemType": {
+      "past": {
+        "buy": "Compró",
+        "sell": "Vendido",
+        "short": "Vendido en corto",
+        "receive": "Recibió",
+        "send": "Enviado",
+        "request": "Solicitado",
+        "deposit": "Depositado",
+        "withdraw": "retirado",
+        "unknown": "Desconocido"
+      },
+      "present": {
+        "buy": "Comprar",
+        "sell": "Venta",
+        "short": "cortocircuito",
+        "receive": "Recepción",
+        "send": "Enviando",
+        "request": "Solicitando",
+        "deposit": "depositando",
+        "withdraw": "Retiro"
+      }
+    },
+    "marginPosition": {
+      "amount": "Pos. (%{symbol})",
+      "amountShort": "Posición",
+      "value": "Valor de Pos. (%{symbol})",
+      "valueShort": "Valor de Pos.",
+      "borrowed": "Prestado",
+      "costBasis": "Base de Costo",
+      "interestAccured": "Interés Acumulado",
+      "realizedPnL": "Real. PnL",
+      "unrealizedPnL": "No Realizado P&L",
+      "pnlShort": "PnL",
+      "pair": "Par",
+      "position": "Posición",
+      "size": "Tamaño",
+      "positionValue": "Valor Posición",
+      "remainingLiability": "Responsabilidad restante",
+      "closeButton": "Cerrar Posición",
+      "cancelButton": "Cancelar Posición",
+      "modalOptionHeader": {
+        "cancel": "Cancelación de Posición",
+        "close": "Cierre de Posición",
+        "repay": "Recompra de Posición"
+      }
+    },
+    "cancelMarginPositionModal": {
+      "heading": "Cancelar Posición",
+      "title": "Detalle de Posición",
+      "pair:": "Par:",
+      "position:": "Posición:",
+      "size:": "Tamaño:",
+      "cost basis:": "Base de costos:",
+      "position value:": "Valor de posición:",
+      "interest accrued:": "Interés acumulado:",
+      "unrealized PnL:": "P&L no realizado:",
+      "message": "Esta posición no está asociada a ningún préstamo y puede cancelarse sin realizar más transacciones. Una vez cancelada, el P&L no realizado y la pérdida de la posición ya no se actualizarán.",
+      "failure": "Posición %{PositionId} cerrada"
+    },
+    "closeMarginPositionModal": {
+      "heading": "Cerrar Posición",
+      "title": "Detalle de Posición",
+      "transationDetail": "Detalle de transacción",
+      "transactionPoint1": "\u2022 Primero, venderemos %{Product1} por %{Product2} para reducir el tamaño de la posición.",
+      "transactionPoint2": "\u2022 A continuación, reembolsaremos cualquier pasivo restante utilizando sus activos colaterales en el siguiente orden:",
+      "message": "Esta posición no está asociada a ningún préstamo y puede cancelarse sin realizar más transacciones. Una vez cancelada, el P&L no realizado y la pérdida de la posición ya no se actualizarán.",
+      "success": "Su posición %{PositionType} %{InstrumentSymbol} se ha cerrado exitosamente.",
+      "failure": "Se produjo un error al cerrar su posición %{PositionType} %{InstrumentSymbol}. Detalles del error: %{error}"
+    }
+  },
+  "requests": {
+    "request": "Pedido",
+    "requestFrom": "Solicitud de",
+    "note": "notas",
+    "confirmRequest": "Solicitud de confirmación",
+    "declineRequest": "Solicitud de rechazo",
+    "cryptoSent": "%{symbol} Enviado",
+    "recipientName": "Nombre de usuario del destinatario"
+  },
+  "marketingWidget": {
+    "alphapoint_bonus": {
+      "title": "Earn $20 in your\ncrypto of choice!",
+      "body": "Learn how to use the AlphaPoint\ntrading system."
+    },
+    "apy_bonus": {
+      "title": "Earn interest in your\nBitcoin!",
+      "body": "By simply holding bitcoin in your\nAlphaPoint wallet, and opting into\nYield, you can earn up to 5.2% APY."
+    },
+    "send_gift": {
+      "title": "Gift crypto to your\nfriends and family!",
+      "body": "Send funds via email, and\nredeem upon signup."
+    },
+    "debit_cards": {
+      "title": "Crypto debit cards\ncoming soon!",
+      "body": "Introducing AlphaPoint Cards\nThe simplest way to pay with\ncrypto worldwide!"
+    }
+  },
+  "qr_scanner": {
+    "blocked_status": "Por favor, revise los permisos de la cámara para la aplicación.",
+    "scan_title": "Escanea el código QR"
+  },
+  "marginTrading": {
+    "balances": {
+      "heading": "Saldos por producto",
+      "availableLabel": "Disponible",
+      "viewMoreLabel": "Ver más",
+      "hideSmallAmounts": "Ocultar cantidades pequeñas",
+      "noAssetsToDisplay": "No hay activos para mostrar"
+    },
+    "collateralFunds": {
+      "heading": "Fondos colaterales por activo",
+      "availableLabel": "Disponible"
+    },
+    "marginPositions": {
+      "heading": "Posiciones de margen por activo",
+      "valuePnlLabel": "Valor / PnL"
+    },
+    "chart": {
+      "collateralLabel": "Activos colaterales",
+      "marginPositionsLabel": "Posiciones de margen",
+      "pnlLabel": "PnL no\nrealizado"
+    },
+    "productDetails": {
+      "totalBalance": "Saldo total",
+      "availableBalance": "Saldo disponible",
+      "onHold": "En espera",
+      "liability": "Pasivo",
+      "usedMargin": "Margen utilizado"
+    },
+    "accountDetails": {
+      "title": "Detalles de la cuenta",
+      "totalBalance": "Saldo total (USD)",
+      "afterHaircuts": "Después de recortes",
+      "marginEquity": "Capital de margen (USD)",
+      "todayPnL": "P&L de hoy (USD)",
+      "maintenanceThreshold": "Umbral de mantenimiento (USD)",
+      "liability": "Pasivo (USD)",
+      "usedMargin": "Margen utilizado (USD)",
+      "usableMargin": "Margen utilizable (USD)",
+      "ok": "Aceptar"
+    }
+  },
+  "tradeScreen": {
+    "activity": {
+      "all": "Todas las actividades",
+      "recieved": "Recibidos",
+      "sent": "Enviados"
+    }
+  }
+}

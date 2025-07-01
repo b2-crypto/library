@@ -1,0 +1,133 @@
+import { Meta, Canvas, Source, ArgTypes, Description } from '@storybook/blocks';
+import { VerificationLevelSection } from '@apex-rn/library/features/Profile';
+import { VerificationTab } from '@apex-rn/library/features/Profile';
+import * as VerificationLevelSectionStory from './VerificationLevelSection.stories';
+
+<Meta title="Profile/Verification" />
+
+# Verification
+
+This document describes a possible implementation of the verification tab with "building blocks" provided by the library.
+
+**Table of Content**:
+
+- [Tab Layout](#tab-layout)
+- [Widgets and Components](#widgets-and-components)
+- [Hooks](#hooks)
+
+## Tab Layout
+
+The tab widget is a wrapper around the [`TabWidget`](?path=/story/components-tabwidget--tab-widget) component. It uses `useVerificationStatus()` hook to get the current verification level.
+
+```tsx
+export const VerificationTabWidget = () => {
+  const { verificationLevel } = useVerificationStatus();
+
+  const visibleLevels = useMemo(
+    () =>
+      (
+        container.resolveConfigValue(
+          'verificationLevels',
+        ) ?? []
+      ).map(level => ({
+        ...level,
+        button: level.verificationMethod === 'sumsub' &&
+          level.level > verificationLevel && (
+            <KYCButton
+              disabled={Math.abs(verificationLevel - level.level) > 1}
+              level={level.level}
+            />
+          ),
+        benefitsInfo: level.benefitsVisible
+          ? translate(
+              `profile.verification.levelsDescription.level${level.level}.benefits`,
+            )
+          : '',
+        requirementsInfo: level.requirementsVisible
+          ? translate(
+              `profile.verification.levelsDescription.level${level.level}.requirements`,
+            )
+          : '',
+      })),
+    [verificationLevel],
+  );
+
+  return (
+    <VerificationTab
+      visibleLevels={visibleLevels}
+      verificationLevel={verificationLevel}
+    />
+  );
+};
+```
+
+### Types
+
+```tsx
+type LevelConfig = {
+  /** Level number */
+  level: number;
+  /** Whether to display benefits in the Verification tab */
+  benefitsVisible: boolean;
+  /** Whether to display requirements in the Verification tab */
+  requirementsVisible: boolean;
+  /** Verification Method to be used (now, only `sumsub` is supported) */
+  verificationMethod?: string;
+};
+```
+
+## Widgets and Components
+
+### VerificationTab
+
+The [`VerificationTab`](?path=/story/profile-components--verification-tab-story) component uses to render the verification tab
+
+<ArgTypes of={VerificationTab} />
+
+## Types
+
+```tsx
+type KYCLevelData = {
+  /** Level number */
+  level: number;
+  /** Whether to display benefits in the Verification tab */
+  benefitsVisible: boolean;
+  /** Whether to display requirements in the Verification tab */
+  requirementsVisible: boolean;
+  /** Verification Method to be used (now, only `sumsub` is supported) */
+  verificationMethod?: string;
+  /** Button to start verification */
+  button: React.ReactNode;
+  /** Benefits info */
+  benefitsInfo: string;
+  /** Requirements info */
+  requirementsInfo: string;
+};
+```
+
+### VerificationLevelSection
+
+The [`VerificationLevelSection`](?path=/story/profile-components--verification-level-section-story) component uses to render the verification level section
+
+<Canvas of={VerificationLevelSectionStory.VerificationLevelSectionStory} />
+
+<ArgTypes of={VerificationLevelSection} />
+
+## Hooks
+
+### `useVerificationStatus()`
+
+This hook is used to get the current verification level and the next level.
+
+```tsx
+type UseVerificationStatusReturn = {
+  /** Next verification level */
+  nextLevel: KYCLevelData | undefined;
+  /** Current verification level */
+  verificationLevel: number;
+  /** Whether transactions are allowed */
+  isTransactionsAllowed: boolean;
+};
+
+function useVerificationStatus(): UseVerificationStatusReturn;
+```

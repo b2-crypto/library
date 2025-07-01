@@ -1,0 +1,35 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Getting Started/Installation" />
+
+# Installation
+
+## Authenticate in the private NPM Registry
+
+You must authenticate to the Package Registry to install the APEX UI kit from a private registry.
+
+To authenticate with `npm` run this commmand in the root directory of your project:
+
+```bash
+npm config set -- //git.lab.apdev.net/api/v4/groups/apex/-/packages/npm/:_authToken=${APEX_NPM_TOKEN}
+```
+
+This will create a `.npmrc` file in the project root.
+
+## Install package
+
+Now you can install APEX UI Kit in your project.
+
+```bash
+npm install @apex-rn/library
+```
+
+You also need to install peer dependencies:
+
+```bash
+npm install @react-navigation/native @reduxjs/toolkit react-redux react-hook-form
+```
+
+## Integration
+
+Now you can configure the UI kit following this documentation — [Configuration](?path=/docs/getting-started-configuration--docs).

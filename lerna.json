@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
+  "version": "1.3.3",
+  "command": {
+    "version": {
+      "message": "chore(release): publish %s [skip ci]",
+      "conventionalCommits": true
+    }
+  }
+}

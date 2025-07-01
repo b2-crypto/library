@@ -1,0 +1,11 @@
+{
+  "extends": "@react-native/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@apex-rn/library": ["../lib"]
+    }
+  },
+  "include": ["docs"],
+  "exclude": ["node_modules", "storybook-static"],
+  "references": [{ "path": "../lib" }]
+}

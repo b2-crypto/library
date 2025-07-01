@@ -1,0 +1,220 @@
+import { Meta, Canvas, Source, ArgTypes, Description } from '@storybook/blocks';
+import * as ReceiveFormHeader from './ReceiveFormHeader.stories';
+import * as AssetField from './AssetField.stories';
+import * as ReceiveType from './ReceiveType.stories';
+import * as ReceiveQR from './ReceiveQr.stories';
+import * as OrderFormBody from './OrderFormBody.stories';
+import * as OrderFormButton from './OrderFormButton.stories';
+import * as TransferCryptoFormBody from './TransferCryptoFormBody.stories';
+import * as ReceiveConfirm from './ReceiveConfirm.stories';
+import { SelectAssetMessage } from "@apex-rn/library/features/Transactions";
+
+<Meta title="transactions/Receive/How to Use" />
+
+# Receive
+
+This document describes a possible implementation of the Receive forms 
+with "building blocks" provided by the library.
+
+**Table of Content**:
+* [Form Layout](#form-layout)
+* [Types](#types)
+* [Widgets and Components](#widgets-and-components)
+* [Hooks](#hooks)
+
+
+## Form Layout
+
+The Receive form can be created using provided components, widgets and hooks. 
+Here is the example of the form layout. Below you can find more details on these pieces.
+
+```tsx
+const ReceiveForm = ({ productId, onClose }) => {
+  const { data: userInfo } = useUserInfo();
+
+  const form = useReceiveForm({ productId }, userInfo?.Email);
+  const { watch, getValues, formState, handleSubmit } = form;
+  const [assetId, type] = watch(['productId', 'type']);
+  const { modalVisible, showModal, hideModal } = useModalControl();
+  const values = getValues();
+
+  const assets = useCryptoAssets();
+  const asset = useMemo(
+    () => assets.find(a => a.ProductId === assetId),
+    [assets, assetId],
+  );
+
+  const modalShown = !!modalVisible && values.type === 'transfer' && !!asset;
+
+  const [requestFunds, { isLoading, error }] = useRequestTransferFunds();
+
+  const onSubmit = useCallback(
+    async (payload) => {
+      if (payload.type === 'transfer') {
+        try {
+          await requestFunds(payload);
+          onClose();
+        } catch {
+          hideModal();
+        }
+      }
+    },
+    [requestFunds, onClose, hideModal],
+  );
+
+  return (
+    <FormProvider {...form}>
+      <ScrollView>
+        <ReceiveFormHeader onClose={onClose}>
+          <AssetField assets={assets} label="Receive" />
+        </ReceiveFormHeader>
+        {assetId && asset ? (
+          <>
+            <ReceiveTypeTabs />
+            {type === 'deposit' ? (
+              <ReceiveQRWidget />
+            ) : (
+              <>
+                <TransferCryptoFormBody asset={asset} />
+                {!!error?.message && <SubmissionError error={error.message} />}
+                <Button
+                  disabled={!formState.isValid}
+                  label="Request"
+                  onPress={showModal}
+                />
+              </>
+            )}
+          </>
+        ) : (
+          <SelectAssetMessage message="Please select an asset to Receive" />
+        )}
+      </ScrollView>
+
+      <ModalBlurBg
+        isVisible={modalShown}
+        onBackdropPress={hideModal}>
+        {modalShown && (
+          <ReceiveConfirm
+            values={values}
+            asset={asset}
+            onClose={hideModal}
+            submitting={isLoading}
+            onSubmit={handleSubmit(onSubmit)}
+          />
+        )}
+      </ModalBlurBg>
+    </FormProvider>
+  );
+};
+
+```
+
+## Types
+
+Type for the form values object used in most of hooks and components:
+
+```ts
+type ReceiveType = 'deposit' | 'transfer';
+
+type ReceiveFormValues = { 
+  /** Selected product (asset) */
+  productId: number; 
+  /** Type of the receive flow */
+  type: ReceiveType;
+  } & (
+    | { type: 'deposit' }
+    | { 
+      type: 'transfer'; 
+      /** Recipient email address */
+      emailAddress: string; 
+      /** Amount to request */
+      amount: string; 
+      /** Optional note for the request */
+      note: string;
+    }
+  );
+```
+
+## Widgets and Components
+
+### ReceiveFormHeader
+
+This is a component for the header of the Order screen. 
+
+<Canvas of={ReceiveFormHeader.ReceiveFormHeaderStory} />
+
+#### Props
+<ArgTypes of={ReceiveFormHeader.ReceiveFormHeaderStory} />
+
+### AssetField
+Dropdown for Asset (product) selector dropdown
+
+<Canvas of={AssetField.AssetFieldStory} layout="centered" />
+<ArgTypes of={AssetField.AssetFieldStory} />
+
+### ReceiveTypeTabs
+
+The tabs component for the receive type (deposit or transfer).
+
+<Canvas of={ReceiveType.ReceiveTypeStory} layout="centered" />
+
+### ReceiveQRWidget
+
+This widgets wraps the ReceiveQR components with a query to load the wallet address for the selected product.
+Does not expect any props. 
+
+#### ReceiveQR
+
+This components renders the QR code with wallet address and a link to copy it in the clipboard.
+
+<Canvas of={ReceiveQR.ReceiveQrStory} layout="centered" />
+<ArgTypes of={ReceiveQR.ReceiveQrStory} />
+
+### TransferCryptoFormBody
+
+Renders the body for the transfer form: email address to send request to, amount and optional note.
+
+<Canvas of={TransferCryptoFormBody.TransferCryptoFormBodyStory} layout="centered" />
+<ArgTypes of={TransferCryptoFormBody.TransferCryptoFormBodyStory} />
+
+### SelectAssetMessage
+
+This component displays a message asking user to select an asset first.
+
+<ArgTypes of={SelectAssetMessage} />
+
+
+### ReceiveConfirm
+
+Content of the Confirm dialog. 
+
+<Canvas of={ReceiveConfirm.ReceiveConfirmStory} layout="centered" />
+<ArgTypes of={ReceiveConfirm.ReceiveConfirmStory} />
+
+
+## Hooks
+
+### `useReceiveForm()`
+This is the wrapper around the React Hook Form's `useForm`. It should be used to instantiate a form
+and create a `FormProvider` for form's widgets (fields and group of fields).
+
+```ts
+function useReceiveForm(
+  /** Optional initial form values */
+  initialValues: Partial<ReceiveFormValues>,
+  /** Current user's email for validation purposes */
+  userEmail?: string,
+): UseFormReturn<ReceiveFormValues>;
+```
+
+### `useCryptoAssets()`
+
+Loads and returns the list of products suitable for use in the Receive form. No arguments expected.
+
+### `useReceiveQR()`
+
+This hook loads a wallet address for the selected asset (product). Accepts `ProductId` as a single argument. Returns `UseQueryHookResult`
+
+### `useRequestTransferFunds()`
+
+Provides a mutation to submit the form values to the API. Mutation callback accepts form values for transfer (see `ReceiveFormValues`).

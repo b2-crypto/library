@@ -1,0 +1,331 @@
+import { Meta, Canvas, Source, ArgTypes, Description } from '@storybook/blocks';
+import * as ReceiveFormHeader from './ReceiveFormHeader.stories';
+import * as AssetField from './AssetField.stories';
+import * as SendType from './SendType.stories';
+import * as SendWithdrawFormBody from './SendWithdrawFormBody.stories';
+import * as OrderFormBody from './OrderFormBody.stories';
+import * as OrderFormButton from './OrderFormButton.stories';
+import * as TransferCryptoFormBody from './TransferCryptoFormBody.stories';
+import * as SendConfirm from './SendConfirm.stories';
+import { SelectAssetMessage } from "@apex-rn/library/features/Transactions";
+import { WithdrawFormWidget, WithdrawSummaryWidget, TransferSummaryWidget } from "@apex-rn/library/features/Transactions";
+
+<Meta title="transactions/Send/How to Use" />
+
+# Send
+
+This document describes a possible implementation of the Receive forms 
+with "building blocks" provided by the library.
+
+**Table of Content**:
+* [Form Layout](#form-layout)
+* [Types](#types)
+* [Widgets and Components](#widgets-and-components)
+* [Hooks](#hooks)
+
+
+## Form Layout
+
+The Receive form can be created using provided components, widgets and hooks. 
+Here is the example of the form layout. Below you can find more details on these pieces.
+
+```tsx
+const SendForm = ({ productId, onClose, onQrClick }: Props) => {
+  const { data: userInfo } = useUserInfo();
+  const { data: wallets } = useWallets();
+  const balances = useMemo(() => wallets.reduce((acc, w) => {
+    acc[w.ProductId] = w.Amount;
+    return acc;
+  }, {} as Record<number, number>), [wallets]);
+
+  const assets = useCryptoAssets();
+  const symbols = useMemo(
+    () =>
+      assets.reduce((acc, i) => {
+        acc[i.ProductId] = i.Product;
+        return acc;
+      }, {}),
+    [assets],
+  );
+
+  const form = useSendForm({ productId }, {
+    userEmail: userInfo?.Email,
+    balances,
+    productSymbols: symbols,
+  });
+
+  const { watch, getValues, formState, handleSubmit } = form;
+  const [assetId, type] = watch(['productId', 'type']);
+  const { modalVisible, showModal, hideModal } = useModalControl();
+  const values = getValues();
+
+  const asset = useMemo(
+    () => assets.find(a => a.ProductId === assetId),
+    [assets, assetId],
+  );
+
+  const balance = balances[assetId];
+
+  const modalShown = !!modalVisible && !!asset;
+
+  const [send, { isLoading, error }] = useSendSubmit();
+
+  const onSubmit = useCallback(
+    async (payload: SendFormValues) => {
+      try {
+        await send(payload);
+        onClose();
+      } catch {
+        hideModal();
+      }
+    },
+    [send, onClose, hideModal],
+  );
+  const SendSummaryWidget =
+    type === 'withdraw' ? WithdrawSummaryWidget : TransferSummaryWidget;
+
+  return (
+    <FormProvider {...form}>
+      <ScrollView>
+        <ReceiveFormHeader onClose={onClose}>
+          <AssetField assets={assets} label="Send" />
+        </ReceiveFormHeader>
+
+        <Box gap="m">
+          {assetId && asset ? (
+            <>
+              <SendTypeTabs />
+              {type === 'withdraw' ? (
+                <WithdrawFormWidget
+                  asset={asset}
+                  onQrClick={onQrClick}
+                  balance={balance}
+                />
+              ) : (
+                <TransferCryptoFormBody asset={asset} balance={balance} />
+              )}
+              <SendSummaryWidget asset={asset} balance={balance || 0} />
+            </>
+          ) : (
+            <SelectAssetMessage message="Please select an asset to Send" />
+          )}
+          {!!error?.message && (<SubmissionError error={error.message} />)}
+          <Button
+            disabled={!formState.isValid}
+            label="Send"
+            onPress={showModal}
+          />
+        </Box>
+      </ScrollView>
+
+      <ModalBlurBg
+        isVisible={modalShown}
+        onBackdropPress={hideModal}>
+        {modalShown && (
+          <SendConfirm
+            values={values}
+            asset={asset}
+            onClose={hideModal}
+            submitting={isLoading}
+            onSubmit={handleSubmit(onSubmit)}
+          />
+        )}
+      </ModalBlurBg>
+    </FormProvider>
+  );
+};
+```
+
+## Types
+
+Type for the form values object used in most of hooks and components:
+
+```ts
+type SendType = 'withdraw' | 'transfer';
+
+type SendFormValues = {
+  /** Selected asset (product) ID */
+  productId: number;
+  /** Amount user wants to send */
+  amount: string;
+  /** Type of the send (withdraw or transfer) */
+  type: SendType;
+} & (
+  | {
+      type: 'withdraw';
+      /** Provider ID for the selected product */
+      providerId: number;
+      /** Template Type */
+      templateType: string;
+      /** Template Form */
+      templateForm: Record<string, string | number>;
+    }
+  | { 
+    type: 'transfer'; 
+    /** Recipient email address */
+    emailAddress: string; 
+    /** Comment for transfer */
+    note: string 
+  }
+);
+```
+
+## Widgets and Components
+
+### ReceiveFormHeader
+
+This is a component for the header of the Order screen. 
+
+<Canvas of={ReceiveFormHeader.ReceiveFormHeaderStory} />
+
+#### Props
+<ArgTypes of={ReceiveFormHeader.ReceiveFormHeaderStory} />
+
+### AssetField
+Dropdown for Asset (product) selector dropdown
+
+<Canvas of={AssetField.AssetFieldStory} layout="centered" />
+<ArgTypes of={AssetField.AssetFieldStory} />
+
+### SendTypeTabs
+
+The tabs component for the send type (withdraw or transfer).
+
+<Canvas of={SendType.SendTypeStory} layout="centered" />
+
+### WithdrawFormWidget
+
+This widgets wraps the `SendWithdrawFormBody` components with a template 
+information loaded from API for the selected asset (see `useWithrawTemplates`).
+Each product can have several template types.
+If more than one is available, the dropdown will be shown to select a template type first.
+Then the fields assosiated with the template will be rendered based on the `templateInfo` object.
+
+<ArgTypes of={SendWithdrawFormBody.SendWithdrawFormBodyStory} include={['asset', 'balance', 'onQrClick']} />
+
+#### SendWithdrawFormBody
+<Canvas of={SendWithdrawFormBody.SendWithdrawFormBodyStory} layout="centered" />
+<ArgTypes of={SendWithdrawFormBody.SendWithdrawFormBodyStory} />
+
+
+### TransferCryptoFormBody
+
+Renders the body for the transfer form: email address to send request to, amount and optional note.
+
+<Canvas of={TransferCryptoFormBody.TransferCryptoFormBodyStory} layout="centered" />
+<ArgTypes of={TransferCryptoFormBody.TransferCryptoFormBodyStory} />
+
+### WithdrawSummaryWidget
+
+This components wraps the `OrderSummary` with a summary information for the withdraw request user creates. 
+It uses `useWithdrawFee` hook to load a fee details for the transaction.
+
+<ArgTypes of={WithdrawSummaryWidget} />
+
+### TransferSummaryWidget
+
+This components wraps the `OrderSummary` with a summary information for the transfer request user creates. 
+
+<ArgTypes of={TransferSummaryWidget} />
+
+### SelectAssetMessage
+
+This component displays a message asking user to select an asset first.
+
+<ArgTypes of={SelectAssetMessage} />
+
+
+### SendConfirm
+
+Content of the Confirm dialog. 
+
+<Canvas of={SendConfirm.WithdrawConfirmStory} layout="centered" />
+<Canvas of={SendConfirm.TransferConfirmStory} layout="centered" />
+<ArgTypes of={SendConfirm.WithdrawConfirmStory} />
+
+
+## Hooks
+
+### `useSendForm()`
+This is the wrapper around the React Hook Form's `useForm`. It should be used to instantiate a form
+and create a `FormProvider` for form's widgets (fields and group of fields).
+
+```ts
+function useSendForm(
+  /** Optional initial form values */
+  initialValues: Partial<SendFormValues>,
+  validationContext: {
+    /** Current user's email for validation purposes */
+    userEmail?: string;
+    /** 
+     * Map of product IDs and their balances to validate that the amount 
+     * value doesn't exceed the balance 
+     */
+    balances?: Record<number, number>;
+    /** 
+     * Map of product IDs and crypto symbols. Used to validate correctness of 
+     * the wallet address entered by the user.
+     */
+    productSymbols?: Record<number, string>;
+  },
+): UseFormReturn<SendFormValues>;
+```
+
+### `useCryptoAssets()`
+
+Loads and returns the list of products suitable for use in the Send form. No arguments expected.
+
+### `useWithdrawFee()`
+
+This hook loads fee information for the given product and amount:
+
+```ts
+function useWithdrawFee(
+  /** Selected Product ID */
+  productId?: number,
+  /** Amount user wants to send */
+  amount?: number,
+): UseQueryHookResult;
+```
+
+### `useWithdrawTemplates()`
+
+This hook loads a template information for the selected product:
+
+```ts
+type TemplateType = {
+  AccountProviderId: number;
+  AccountProviderName: string;
+  TemplateName: string;
+};
+
+type UseWithrawTemplatesReturn = {
+  /** List of available template types for the selected product */
+  templates: TemplateType[];
+  templatesLoading: boolean;
+  /** Configuration object for the template fields: field name as a key and optional config as a string */
+  templateInfo: Record<string, string> | undefined;
+  templatesInfoLoading: boolean;
+  /** Flag indicating that only whitelisted addresses can be used as wallet address field values */
+  requireWhitelistedAddress?: boolean;
+  allowedAddressOptions?: Array<{
+    /** AccountIdentifier */
+    value: string;
+    /** Label for the option (name and identifier) */
+    title: string;
+    /** Disabled option for non-verified address */
+    disabled?: boolean;
+  }>
+};
+
+function useWithrawTemplates(
+  /** Selected Product ID */
+  productId?: number,
+  /** Optional provider Id (usually empty) */
+  providerId?: number,
+): UseWithrawTemplatesReturn;
+```
+
+### `useSendSubmit()`
+
+Provides a mutation to submit the form values to the API. Mutation callback accepts form values for transfer (see `SendFormValues`).
